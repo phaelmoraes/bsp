@@ -46,6 +46,13 @@ class LoanController extends Controller
 
     }
 
+
+    public function removeMask($value){
+        $number = str_replace(".", "", $value);
+        $number = str_replace(",", ".", $number);
+
+        return $number;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -64,15 +71,13 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        
-
         $user = User::find($request->user_id);
         $consumer = Consumer::find($request->consumer);
 
-        $total_price = (($request->fees/100)+1) * $request->price;
+        $total_price = (($request->fees/100)+1) *$this->removeMask($request->price);
 
         $loan = new Loan();
-        $loan->price = $request->price;
+        $loan->price = $this->removeMask($request->price);
         $loan->total_price = $total_price;
         $loan->fees = $request->fees;
         $loan->period = $request->period;
@@ -82,7 +87,7 @@ class LoanController extends Controller
         $loan->consumer_id = $consumer->id;
         $loan->user_id = $user->id;
         $loan->region_id = $user->region_id;
-
+        // dd($loan);
         $loan->save();
 
         
@@ -156,17 +161,17 @@ class LoanController extends Controller
             }
     
             if($request->balance){
-                $installment->amount_paid = $request->value + $loan->balance;
+                $installment->amount_paid = $this->removeMask($request->value) + $loan->balance;
                 if($installment->amount_paid >= $installment->price){
                     $loan->balance = $installment->amount_paid - $installment->price;
                     // dd('aaaa');
                     $loan->save();
-                    $installment->amount_paid =  $request->value;
+                    $installment->amount_paid =  $this->removeMask($request->value);
                 }
                 else {
                     $loan->balance = $installment->amount_paid - $installment->price;
                     $loan->save();
-                    $installment->amount_paid = $request->value;
+                    $installment->amount_paid = $this->removeMask($request->value);
                 }
                 $installment->updated_at = now();
                 $installment->status = 'paid';
@@ -185,7 +190,7 @@ class LoanController extends Controller
                 return view('loan', compact('loan', 'loan_installments', 'newPrice'));
             }
     
-            $installment->amount_paid = $request->value;
+            $installment->amount_paid = $this->removeMask($request->value);
             $installment->updated_at = now();
             $installment->status = 'paid';
             // dd($installment->amount_paid);
@@ -251,6 +256,7 @@ class LoanController extends Controller
 
     public function renegotiate(Request $request, $id)
     {
+        // dd($request->all());
         $loan = Loan::find($id);
         $loan->status = 'renegotiated';
         $loan->save();
@@ -259,10 +265,10 @@ class LoanController extends Controller
         $user = User::find($request->user_id);
         $consumer = Consumer::find($request->consumer);
 
-        $total_price = (($request->fees/100)+1) * $request->price;
+        $total_price = (($request->fees/100)+1) * $this->removeMask($request->price);
 
         $newLoan = new Loan();
-        $newLoan->price = $request->price;
+        $newLoan->price = $this->removeMask($request->price);
         $newLoan->total_price = $total_price;
         $newLoan->fees = $request->fees;
         $newLoan->period = $request->period;

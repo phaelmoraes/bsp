@@ -1,5 +1,33 @@
 @extends('layouts.app')
 
+@push('script-fisrt')
+<script>
+    
+    String.prototype.reverse = function(){
+        return this.split('').reverse().join(''); 
+    };
+
+    function mascaraMoeda(campo,evento){
+        var tecla = (!evento) ? window.event.keyCode : evento.which;
+        var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+        var resultado  = "";
+        var mascara = "##.###.###,##".reverse();
+        for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+            if (mascara.charAt(x) != '#') {
+                resultado += mascara.charAt(x);
+                x++;
+            } else {
+                resultado += valor.charAt(y);
+                y++;
+                x++;
+            }
+        }
+        campo.value = resultado.reverse();
+    };
+
+</script>
+@endpush
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -172,7 +200,7 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <label for="name">Valor</label>
-                                            <input type="number" class="form-control" id="price" name="price" value="{{ $newPrice }}" required>
+                                            <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="price" name="price" value="{{number_format($newPrice,2,',','.') }}" required>
                                         </div>
 
                                         <div class="col">
@@ -297,7 +325,7 @@
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="valor">Valor:  </label>
-                                                                <input type="text" class="form-control" id="valor-{{$installments->id}}" name="value" @if($installments->status == 'paid') value="{{ number_format($installments->amount_paid,2,",",".") }}" readonly @endif>
+                                                                <input type="text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" id="valor-{{$installments->id}}" name="value" @if($installments->status == 'paid') value="{{ number_format($installments->amount_paid,2,",",".") }}" readonly @endif>
                                                             </div>
 
                                                             @if($installments->status != 'opened')

@@ -1,5 +1,32 @@
 @extends('layouts.app')
 
+@push('script-fisrt')
+<script>
+    String.prototype.reverse = function(){
+        return this.split('').reverse().join(''); 
+    };
+
+    function mascaraMoeda(campo,evento){
+        var tecla = (!evento) ? window.event.keyCode : evento.which;
+        var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+        var resultado  = "";
+        var mascara = "##.###.###,##".reverse();
+        for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+            if (mascara.charAt(x) != '#') {
+                resultado += mascara.charAt(x);
+                x++;
+            } else {
+                resultado += valor.charAt(y);
+                y++;
+                x++;
+            }
+        }
+        campo.value = resultado.reverse();
+    };
+
+</script>
+@endpush
+
 @section('content')
 <div class="content">
     <div class="container-fluid">
@@ -38,7 +65,7 @@
                       <div class="form-row">
                         <div class="col">
                             <label for="name">Valor</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
+                            <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="price" name="price" required>
                         </div>
 
                         <div class="col">
