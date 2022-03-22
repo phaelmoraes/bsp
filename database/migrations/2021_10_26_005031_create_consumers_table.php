@@ -23,8 +23,6 @@ class CreateConsumersTable extends Migration
             $table->enum('gender', ['MALE', 'FEMALE', 'OTHER'])->nullable();
             $table->string('email', 20)->nullable();
             $table->string('note', 255)->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

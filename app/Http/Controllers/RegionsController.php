@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Regions;
+use App\Models\Region;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegionsController extends Controller
@@ -35,7 +36,13 @@ class RegionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $region = new Region();
+        $region->name = $request->route;
+        $region->save();
+
+        $users = User::simplePaginate(10);
+        $regions = Region::simplePaginate(10);
+        return view('collaborators', compact('users', 'regions'));
     }
 
     /**
@@ -55,9 +62,11 @@ class RegionsController extends Controller
      * @param  \App\Models\Regions  $regions
      * @return \Illuminate\Http\Response
      */
-    public function edit(Regions $regions)
+    public function edit($id)
     {
-        //
+        $region = Region::find($id);
+        
+        return view('region', compact('region'));
     }
 
     /**
@@ -67,9 +76,15 @@ class RegionsController extends Controller
      * @param  \App\Models\Regions  $regions
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Regions $regions)
+    public function update(Request $request, $id)
     {
-        //
+        $region = Region::find($id);
+        $region->name = $request->route;
+        $region->save();
+
+        $users = User::simplePaginate(10);
+        $regions = Region::simplePaginate(10);
+        return view('collaborators', compact('users', 'regions'));
     }
 
     /**

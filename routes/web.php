@@ -13,6 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+  //  return view('base');
+//});
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/consumers', [App\Http\Controllers\ConsumerController::class, 'index'])->name('consumers');
+Route::post('/consumers', [App\Http\Controllers\ConsumerController::class, 'store']);
+Route::get('/consumer/{id}', [App\Http\Controllers\ConsumerController::class, 'edit'])->name('consumerEdit');
+Route::post('/consumer/edit/{id}', [App\Http\Controllers\ConsumerController::class, 'update'])->name('consumerEditPost');
+Route::get('/loan', [App\Http\Controllers\LoanController::class, 'index'])->name('loan');
+Route::post('/loan', [App\Http\Controllers\LoanController::class, 'store'])->name('borrow');
+Route::get('/loan/{id}', [App\Http\Controllers\LoanController::class, 'show'])->name('showLoan');
+Route::get('/loan/edit/{id}', [App\Http\Controllers\LoanController::class, 'edit'])->name('editInstallments');  
+Route::get('/loan/cancel/{id}', [App\Http\Controllers\LoanController::class, 'cancel'])->name('cancel');
+Route::post('/loan/renegotiate/{id}', [App\Http\Controllers\LoanController::class, 'renegotiate'])->name('renegotiate');
+Route::get('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'index'])->name('collaborators');
+Route::post('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'store']);
+Route::get('/collaborator/{id}', [App\Http\Controllers\CollaboratorController::class, 'edit'])->name('collaboratorEdit');
+Route::post('/collaborator/edit/{id}', [App\Http\Controllers\CollaboratorController::class, 'update'])->name('collaboratorEditPost');
+Route::post('/region', [App\Http\Controllers\RegionsController::class, 'store']);
+Route::get('/region/{id}', [App\Http\Controllers\RegionsController::class, 'edit'])->name('regionEdit');
+Route::post('/region/edit/{id}', [App\Http\Controllers\RegionsController::class, 'update'])->name('regionEditPost');
+
+
+
+Route::get('/contact/{id}/{consumerId}', [App\Http\Controllers\ContactsController::class, 'delete'])->name('destroy');
+
+
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();

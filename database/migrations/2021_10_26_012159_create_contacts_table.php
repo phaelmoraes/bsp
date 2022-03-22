@@ -15,14 +15,10 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['EMAIL', 'WHATSAPP', 'PHONE', 'CELL_PHONE']);
+            $table->enum('type', ['WHATSAPP', 'PHONE', 'CELL_PHONE']);
             $table->string('phone', 20)->nullable();
-            $table->string('email', 50)->nullable();
-            $table->string('name', 255);
             $table->unsignedBigInteger('consumer_id')->nullable();
             $table->foreign('consumer_id')->references('id')->on('consumers');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

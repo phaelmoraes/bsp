@@ -20,15 +20,13 @@ class CreateAddressesTable extends Migration
             $table->integer('building_number')->nullable();
             $table->string('zip_code', 10)->nullable();
             $table->string('complement', 255)->nullable();
-            $table->string('city', 100);
-            $table->string('state', 75);
+            $table->string('city', 100)->nullable();
+            $table->string('state', 75)->nullable();
             $table->boolean('is_primary')->default(false);
 
             $table->unsignedBigInteger('consumer_id')->nullable();
             $table->foreign('consumer_id')->references('id')->on('consumers');
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -15,6 +15,12 @@ class CreateLoanInstallmentsTable extends Migration
     {
         Schema::create('loan_installments', function (Blueprint $table) {
             $table->id();
+            $table->double('price', 10, 2);
+            $table->integer('number_installment');
+            $table->enum('status', ['opened', 'paid', 'delayed']);
+            $table->double('amount_paid', 10, 2)->default(0);
+            $table->unsignedBigInteger('loan_id')->nullable();
+            $table->foreign('loan_id')->references('id')->on('loans');
             $table->timestamps();
         });
     }

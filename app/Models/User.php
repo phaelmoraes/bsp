@@ -21,7 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'function',
     ];
+
+    public function region(){
+        return $this->hasOne('App\Models\Region');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
