@@ -71,6 +71,7 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $user = User::find($request->user_id);
         $consumer = Consumer::find($request->consumer);
 
@@ -128,10 +129,10 @@ class LoanController extends Controller
         $loan = Loan::find($id);
         $loan_installments = LoanInstallment::where('loan_id', $id)->get();
         
-        $balance = $loan_installments->sum('amount_paid');
-        $newPrice = $loan->total_price - $balance;
+        $amount_paid = $loan_installments->sum('amount_paid');
+        $newPrice = $loan->total_price - $amount_paid;
 
-        return view('loan', compact('loan', 'loan_installments', 'newPrice'));
+        return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
     }
 
     /**
@@ -153,10 +154,10 @@ class LoanController extends Controller
                 $installment->save();
     
                 $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
-                $balance = $loan_installments->sum('amount_paid');
-                $newPrice = $loan->total_price - $balance;
+                $amount_paid = $loan_installments->sum('amount_paid');
+                $newPrice = $loan->total_price - $amount_paid;
 
-                return view('loan', compact('loan', 'loan_installments', 'newPrice'));
+                return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
     
             }
     
@@ -184,10 +185,10 @@ class LoanController extends Controller
                 // dd($installment, $loan);
     
                 $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
-                $balance = $loan_installments->sum('amount_paid');
-                $newPrice = $loan->total_price - $balance;
+                $amount_paid = $loan_installments->sum('amount_paid');
+                $newPrice = $loan->total_price - $amount_paid;
 
-                return view('loan', compact('loan', 'loan_installments', 'newPrice'));
+                return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));   
             }
     
             $installment->amount_paid = $this->removeMask($request->value);
@@ -213,10 +214,10 @@ class LoanController extends Controller
         // $teste = $loan_installments->sum('amount_paid');
         // dd($teste);
 
-        $balance = $loan_installments->sum('amount_paid');
-        $newPrice = $loan->total_price - $balance;
+        $amount_paid = $loan_installments->sum('amount_paid');
+        $newPrice = $loan->total_price - $amount_paid;
 
-        return view('loan', compact('loan', 'loan_installments', 'newPrice'));
+        return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
 
     }
 
@@ -301,6 +302,17 @@ class LoanController extends Controller
 
 
         // dd('renegotiate', $request->all(), $id, $loan, $newLoan, $loan_installments);
+    }
+
+    public function finish($id)
+    {
+        // dd('finish', $id);
+        $loan = Loan::find($id);
+        $loan->status = 'paid';
+        $loan->save();
+        
+        return redirect()->route('loan');
+
     }
 
 

@@ -19,6 +19,10 @@
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"/>
+
 
     @yield('third_party_stylesheets')
 
@@ -95,6 +99,10 @@
 </div>
 
 <script src="{{ mix('js/app.js') }}" defer></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 @yield('third_party_scripts')
 

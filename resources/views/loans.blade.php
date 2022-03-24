@@ -25,6 +25,33 @@
     };
 
 </script>
+
+<script type="text/javascript">
+
+    var path = "{{ route('autocomplete') }}";
+  
+    $('#consumer').select2({
+        placeholder: 'Selecione um Cliente',
+        ajax: {
+          url: path,
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.name,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+
+  
+</script>
 @endpush
 
 @section('content')
@@ -49,11 +76,7 @@
                       <div class="form-row">
                         <div class="col">
                         <label for="name">Selecione o Cliente</label>
-                            <select class="form-select" aria-label="Default select example" id="consumer" name="consumer">
-                                @foreach($consumers as $consumer)
-                                <option value="{{$consumer->id}}">{{$consumer->name}}</option>
-                                @endforeach
-                            </select>
+                            <select class="form-control" style="width:500px;" aria-label="Default select example" id="consumer" name="consumer" required></select>
                         </div>
                         <div class="col">
                         <label for="lastName">Colaborador</label>

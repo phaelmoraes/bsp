@@ -45,7 +45,7 @@
                                 Cancelar
                                 </button>
 
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucesso">
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucess">
                                 Finalizar
                                 </button>
                                 
@@ -67,6 +67,8 @@
                                 <h5 class="card-title">Cliente: {{ $loan->Consumer->name }}</h5>
                                 <p class="card-text">
                                     Valor: R$ {{ number_format($loan->price,2,",",".") }}</br>
+                                    Valor Total: R$ {{ number_format($loan->total_price,2,",",".") }}</br>
+                                    Juros: {{ $loan->fees }} %</br>
                                     Parcelas: {{ $loan->installments }}</br>
                                     Saldo: R$ {{ number_format($loan->balance,2,",",".") }}</br>
                                 </p>
@@ -268,6 +270,26 @@
                                 </div>
                                 </div>
                                 </form>
+                            </div>
+                        </div>
+
+                        <!-- Modal Finalizar-->
+                        <div class="modal fade" id="modalSucess" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Você deseja finalinar esse empréstimo?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    O valor total deste emprétimo foi de R$ {{ number_format($loan->total_price,2,",",".") }}<br> 
+                                    O valor total pago foi de R$ {{ number_format($amount_paid,2,",",".") }}.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</button>
+                                    <a href="{{url('loan/finish/'.$loan->id)}}"class="btn btn-success">Finalizar</a>
+                                </div>
+                                </div>
                             </div>
                         </div>
 

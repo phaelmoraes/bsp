@@ -39,6 +39,7 @@ class ConsumerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        
         $contactsJSON = $request->contacts;
         $contacts = json_decode($contactsJSON);
 
@@ -46,7 +47,7 @@ class ConsumerController extends Controller
 
         $consumer->name = $request->name;
         
-        if($request->cpf_cnpj >= 15) {
+        if(strlen($request->cpf_cnpj) >= 15) {
             $consumer->type = "PJ";
             $consumer->cnpj = $request->cpf_cnpj;
         }
@@ -54,6 +55,7 @@ class ConsumerController extends Controller
             $consumer->type = "PF";
             $consumer->cpf = $request->cpf_cnpj;
         }
+        // dd($request->all(), strlen($request->cpf_cnpj), $consumer);
 
         $consumer->gender = $request->gender;
         $consumer->email = $request->email;
@@ -150,7 +152,7 @@ class ConsumerController extends Controller
 
         $consumer->name = $request->name;
         
-        if($request->cpf_cnpj >= 15) {
+        if(strlen($request->cpf_cnpj) >= 15) {
             $consumer->type = "PJ";
             $consumer->cnpj = $request->cpf_cnpj;
         }

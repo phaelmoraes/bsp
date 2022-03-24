@@ -1,6 +1,64 @@
 @extends('layouts.app')
 
+@push('script-fisrt')
+
+<script>
+  
+  function mascaraMutuario(o,f){
+      v_obj=o
+      v_fun=f
+      setTimeout('execmascara()',1)
+  }
+  
+  function execmascara(){
+      v_obj.value=v_fun(v_obj.value)
+  }
+  
+  function cpfCnpj(v){
+  
+      //Remove tudo o que não é dígito
+      v=v.replace(/\D/g,"")
+  
+      if (v.length < 14) { //CPF
+  
+          //Coloca um ponto entre o terceiro e o quarto dígitos
+          v=v.replace(/(\d{3})(\d)/,"$1.$2")
+  
+          //Coloca um ponto entre o terceiro e o quarto dígitos
+          //de novo (para o segundo bloco de números)
+          v=v.replace(/(\d{3})(\d)/,"$1.$2")
+  
+          //Coloca um hífen entre o terceiro e o quarto dígitos
+          v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+  
+      } else { //CNPJ
+  
+          //Coloca ponto entre o segundo e o terceiro dígitos
+          v=v.replace(/^(\d{2})(\d)/,"$1.$2")
+  
+          //Coloca ponto entre o quinto e o sexto dígitos
+          v=v.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+  
+          //Coloca uma barra entre o oitavo e o nono dígitos
+          v=v.replace(/\.(\d{3})(\d)/,".$1/$2")
+  
+          //Coloca um hífen depois do bloco de quatro dígitos
+          v=v.replace(/(\d{4})(\d)/,"$1-$2")
+  
+      }
+  
+      return v
+  
+  }
+
+</script>
+@endpush
+
 @section('content')
+
+
+
+
 
 <script>
   function formatarCampo(campoTexto) {
@@ -92,7 +150,9 @@
                         </div>
                         <div class="col">
                         <label for="lastName">CPF/CNPJ</label>
-                          <input type="text" onfocus="javascript: retirarFormatacao(this);" onblur="javascript: formatarCampo(this);" maxlength="14" class="form-control" id="cpf_cnpj" name="cpf_cnpj"/>
+                          <input type="text" onkeypress="mascaraMutuario(this,cpfCnpj)" onblur="clearTimeout()" maxlength="18" class="form-control" id="cpf_cnpj" name="cpf_cnpj"/>
+                          <!-- <input type='text' name='cpfcnpj' maxlength="18" onkeypress='mascaraMutuario(this,cpfCnpj)' onblur='clearTimeout()'> -->
+
                         </div>
                       </div>
                       <div class="form-row">

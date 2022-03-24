@@ -5,12 +5,17 @@
         <p>Home</p>
     </a>
 </li>
+<?php
+    $id = Auth::user()->function ;
+?>
+@if( $id == "Administrator")
 <li class="nav-item">
     <a href="{{ route('collaborators') }}" class="nav-link">
         <i class="nav-icon fas fa-briefcase"></i>
         <p>Colaboradores</p>
     </a>
 </li>
+@endif
 <li class="nav-item">
     <a href="{{ route('consumers') }}" class="nav-link">
         <i class="nav-icon fas fa-user"></i>
