@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @push('script-fisrt')
+
 <script>
     
     String.prototype.reverse = function(){
@@ -37,17 +38,19 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             Informações
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalRenegotiate">
-                                Renegociar
-                                </button>
+                                @if($loan->status == 'opened')
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalRenegotiate">
+                                    Renegociar
+                                    </button>
 
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancel">
-                                Cancelar
-                                </button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancel">
+                                    Cancelar
+                                    </button>
 
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucess">
-                                Finalizar
-                                </button>
+                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucess">
+                                    Finalizar
+                                    </button>
+                                @endif
                                 
                         </h3>
                         <div class="card-tools">
@@ -347,17 +350,17 @@
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label for="valor">Valor:  </label>
-                                                                <input type="text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" id="valor-{{$installments->id}}" name="value" @if($installments->status == 'paid') value="{{ number_format($installments->amount_paid,2,",",".") }}" readonly @endif>
+                                                                <input type="text" class="form-control" size="12" onKeyUp="mascaraMoeda(this, event)" id="valor-{{$installments->id}}" name="value" @if($installments->status == 'paid' || $loan->status != 'opened') value="{{ number_format($installments->amount_paid,2,",",".") }}" readonly @endif>
                                                             </div>
 
-                                                            @if($installments->status != 'opened')
+                                                            @if($installments->status != 'opened' && $loan->status == 'opened')
                                                             <div class="form-group col-md-4">
                                                                 <label for="date">Data:  </label>
                                                                 <input type="text" class="form-control" id="date-{{$installments->id}}" name="date"  value="{{ $installments->updated_at->format('d-m-Y H:i:s') }}" readonly>
                                                             </div>
                                                             @endif
 
-                                                            @if($installments->status != 'paid')
+                                                            @if($installments->status != 'paid' && $loan->status == 'opened')
                                                             <div class="col-md-2">
                                                                 <b>Opções:</b>
                                                                 <div class="form-check">
@@ -377,7 +380,7 @@
                                                             @endif
                                                         </div>
 
-                                                        @if($installments->status != 'paid')
+                                                        @if($installments->status != 'paid' && $loan->status == 'opened')
                                                         <div class="col-sm-2 align-self-center">
                                                             <button type="submit" class="btn btn-primary btn-sm-3">Atualizar</button>
                                                         </div>

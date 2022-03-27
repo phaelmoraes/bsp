@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('script-fisrt')
+
+@endpush
+
 @section('content')
 
 <div class="content">

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('script-fisrt')
+
+@endpush
+
 @section('content')
 
 <script>
@@ -83,6 +87,15 @@
                     <!-- /.card-tools -->
                   </div>
                   <div class="card-body">
+                    @if($errors->any())
+                      <ul class="list-group">
+                        @foreach($errors->all() as $error)
+                          <li class="list-group-item list-group-item-danger">{{$error}}</li>
+                        @endforeach
+
+                      </ul>
+                    @endif
+
                     <form action="/collaborator/edit/{{$collaborator->id}}" method="POST">
                       @csrf
                       <div class="form-row">
@@ -92,7 +105,7 @@
                         </div>
                         <div class="col">
                         <label for="lastName">email</label>
-                          <input type="text" maxlength="50" class="form-control" id="email" name="email" value="{{$collaborator->email}}"/>
+                          <input type="text" maxlength="50" class="form-control" id="email" name="email" value="{{$collaborator->email}}" readonly/>
                         </div>
                       </div>
 

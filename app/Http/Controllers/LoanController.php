@@ -40,9 +40,10 @@ class LoanController extends Controller
         }
 
         $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
+        $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
         // dd('aaaa', $loans);
         
-        return view('loans', compact('consumers','collaborator', 'region', 'loans'));
+        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished'));
 
     }
 
@@ -112,8 +113,10 @@ class LoanController extends Controller
         $collaborator = User::find($id);
         $region = Region::find($collaborator->region_id);
         $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
-        // dd($loans);
-        return view('loans', compact('consumers','collaborator', 'region', 'loans'));
+        $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
+        // dd('aaaa', $loans);
+        
+        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished'));
 
         // dd($price, $loan, $loan_installments);
     }
@@ -131,6 +134,7 @@ class LoanController extends Controller
         
         $amount_paid = $loan_installments->sum('amount_paid');
         $newPrice = $loan->total_price - $amount_paid;
+        // dd($loan);
 
         return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
     }

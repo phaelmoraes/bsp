@@ -31,5 +31,9 @@ class Loan extends Model
         return $this->belongsTo('App\Models\Region');
     }
 
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
+
 
 }

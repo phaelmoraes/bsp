@@ -2,6 +2,7 @@
 
 @push('script-fisrt')
 
+
 <script>
   
   function mascaraMutuario(o,f){

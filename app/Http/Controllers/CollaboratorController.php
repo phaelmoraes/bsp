@@ -11,6 +11,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UserRequest;
 
 
 class CollaboratorController extends Controller
@@ -22,8 +23,8 @@ class CollaboratorController extends Controller
      */
     public function index()
     {
-        $users = User::simplePaginate(5);
-        $regions = Region::simplePaginate(5);
+        $users = User::all();
+        $regions = Region::all();
         return view('collaborators', compact('users', 'regions'));
     }
 
@@ -43,7 +44,7 @@ class CollaboratorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $collaborator = new User();
         $collaborator->name = $request->name;
@@ -56,8 +57,8 @@ class CollaboratorController extends Controller
 
         $collaborator->save();
 
-        $users = User::simplePaginate(5);
-        $regions = Region::simplePaginate(5);
+        $users = User::all();
+        $regions = Region::all();
         
         return view('collaborators', compact('users', 'regions'));
     }
@@ -108,8 +109,8 @@ class CollaboratorController extends Controller
 
         $collaborator->save();
 
-        $users = User::simplePaginate(5);
-        $regions = Region::simplePaginate(5);
+        $users = User::all();
+        $regions = Region::all();
         return view('collaborators', compact('users', 'regions'));
 
     }

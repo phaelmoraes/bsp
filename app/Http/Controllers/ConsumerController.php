@@ -16,7 +16,7 @@ class ConsumerController extends Controller
      */
     public function index()
     {
-        $consumers = Consumer::simplePaginate(5);
+        $consumers = Consumer::all();
         $contacts = Contact::all();
 
         return view('consumers', compact('consumers', 'contacts'));
@@ -100,7 +100,7 @@ class ConsumerController extends Controller
         $address->save();
 
 
-        $consumers = Consumer::simplePaginate(10);
+        $consumers = Consumer::all();
 
         return view('consumers', compact('consumers'));
     }
