@@ -45,9 +45,9 @@ alert("Eu sou um alert!");
 @section('content')
 
 
-<div class="ratio ratio-1x4"  style="--bs-aspect-ratio: 200%;">
+<!-- <div class="ratio ratio-1x4"  style="--bs-aspect-ratio: 200%;">
   <iframe src="https://www.bpssolucoes.com/demo-search" title="Relatorio" allowfullscreen></iframe>
-</div>
+</div> -->
 
 
 
