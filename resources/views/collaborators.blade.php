@@ -115,8 +115,8 @@
                         <div class="col">
                             <label for="lastName">Função</label>
                             <select class="form-select" aria-label="Default select example" id="function" name="function">
-                              <option selected>Administrador</option>
-                              <option value="1">Colaborador</option>
+                              <option selected value="Administrator">Administrador</option>
+                              <option value="Collaborator">Colaborador</option>
                             </select>
                         </div>
 
