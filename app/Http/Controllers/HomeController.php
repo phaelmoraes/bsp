@@ -31,6 +31,7 @@ class HomeController extends Controller
     {
         if( Auth::user()->function == 'Administrator'){
             $loans = Loan::all();
+            
             // dd($loans->region());
             return view('home', compact('loans'));
         }

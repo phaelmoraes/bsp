@@ -64,13 +64,14 @@
 
                     <div class="card-body">
 
-                        <div class="card text-white bg-secondary col-sm-3" style="max-width: 18rem;">
+                        <div class="card text-white bg-secondary col-lg-6">
                             <div class="card-header">Dados</div>
                             <div class="card-body">
                                 <h5 class="card-title">Cliente: {{ $loan->Consumer->name }}</h5>
                                 <p class="card-text">
                                     Valor: R$ {{ number_format($loan->price,2,",",".") }}</br>
                                     Valor Total: R$ {{ number_format($loan->total_price,2,",",".") }}</br>
+                                    Valor Pago: R$ {{number_format($newPrice,2,',','.') }}</br>
                                     Juros: {{ $loan->fees }} %</br>
                                     Parcelas: {{ $loan->installments }}</br>
                                     Saldo: R$ {{ number_format($loan->balance,2,",",".") }}</br>

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Consumer;
+use App\Models\Loan;
+use App\Models\LoanInstallment;
 
 class Loan extends Model
 {
@@ -33,6 +35,13 @@ class Loan extends Model
 
     public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function amount_paid($id){
+        $loan = Loan::find($id);
+        $amount_paid = LoanInstallment::where('loan_id', $loan->id)->sum('amount_paid');
+
+        return $amount_paid;
     }
 
 

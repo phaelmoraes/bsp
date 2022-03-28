@@ -11,7 +11,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card card-outline card-danger">
                 <div class="card-header">
                     <h3 class="card-title">Empréstimo</h3>
@@ -31,6 +31,7 @@
                                     <th>Id</th>
                                     <th>Valor</th>
                                     <th>Valor Total</th>
+                                    <th>Valor Pago</th>
                                     <th>Juros</th>
                                     <th>Periodo</th>
                                     <th>Status</th>
@@ -39,6 +40,7 @@
                                     <th>Cliente</th>
                                     <th>Colaborador</th>
                                     <th>Rota</th>
+
                                 </tr>
                             </thead>
 
@@ -48,6 +50,7 @@
                                     <td>{{ $loan->id }}</td>
                                     <td>R$ {{ number_format($loan->price,2,",",".") }} </td>
                                     <td>R$ {{ number_format($loan->total_price,2,",",".") }}</td>
+                                    <td>R$ {{ number_format($loan->amount_paid($loan->id),2,",",".") }}</td>
                                     <td>{{ $loan->fees }}%</td>
                                     <td> 
                                       @if($loan->period == 'diary')
@@ -83,6 +86,7 @@
                                     <th>Id</th>
                                     <th>Valor</th>
                                     <th>Valor Total</th>
+                                    <th>Valor Pago</th>
                                     <th>Juros</th>
                                     <th>Periodo</th>
                                     <th>Status</th>
