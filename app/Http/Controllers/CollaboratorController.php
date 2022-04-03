@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Consumer;
 use App\Models\User;
 use App\Models\Region;
+use App\Models\Loan;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -124,5 +125,29 @@ class CollaboratorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function balance()
+    {
+        $users = User::all();
+
+        return view('balance', compact('users'));
+    }
+
+    public function addBalance(Request $request)
+    {
+        
+        $user = User::find($request->collaborator);
+        $user->balance = $user->balance + $this->removeMask($request->value);
+        $user->save();
+
+        return redirect()->route('balance');
+    }
+
+    public function removeMask($value){
+        $number = str_replace(".", "", $value);
+        $number = str_replace(",", ".", $number);
+
+        return $number;
     }
 }

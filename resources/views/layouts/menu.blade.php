@@ -1,8 +1,8 @@
 <!-- need to remove -->
 <?php
-    $id = Auth::user()->function ;
+    $permissao = Auth::user()->function ;
 ?>
-@if( $id == "Administrator")
+@if( $permissao == "Administrator")
 <li class="nav-item">
     <a href="{{ route('home') }}" class="nav-link">
         <i class="nav-icon fas fa-home"></i>
@@ -10,7 +10,7 @@
     </a>
 </li>
 @endif
-@if( $id == "Administrator")
+@if( $permissao == "Administrator")
 <li class="nav-item">
     <a href="{{ route('collaborators') }}" class="nav-link">
         <i class="nav-icon fas fa-briefcase"></i>
@@ -30,4 +30,9 @@
         <p>Empréstimos</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('balance') }}" class="nav-link">
+        <i class="nav-icon fas fa-solid fa-coins"></i>
+        <p>Saldo</p>
+    </a>
+</li>

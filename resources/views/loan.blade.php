@@ -72,6 +72,7 @@
                                     Valor: R$ {{ number_format($loan->price,2,",",".") }}</br>
                                     Valor Total: R$ {{ number_format($loan->total_price,2,",",".") }}</br>
                                     Valor Pago: R$ {{ number_format($loan->amount_paid($loan->id),2,",",".") }}</br>
+                                    Valor Restante: R$ {{ number_format($newPrice,2,',','.') }}</br>
                                     Juros: {{ $loan->fees }} %</br>
                                     Parcelas: {{ $loan->installments }}</br>
                                     Saldo: R$ {{ number_format($loan->balance,2,",",".") }}</br>

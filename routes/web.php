@@ -34,6 +34,8 @@ Route::post('/loan/renegotiate/{id}', [App\Http\Controllers\LoanController::clas
 Route::get('/loan/finish/{id}', [App\Http\Controllers\LoanController::class, 'finish'])->name('finish');
 Route::get('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'index'])->name('collaborators');
 Route::post('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'store']);
+Route::get('/balance', [App\Http\Controllers\CollaboratorController::class, 'balance'])->name('balance');
+Route::post('/AddBalance', [App\Http\Controllers\CollaboratorController::class, 'AddBalance'])->name('AddBalance');
 Route::get('/collaborator/{id}', [App\Http\Controllers\CollaboratorController::class, 'edit'])->name('collaboratorEdit');
 Route::post('/collaborator/edit/{id}', [App\Http\Controllers\CollaboratorController::class, 'update'])->name('collaboratorEditPost');
 Route::post('/region', [App\Http\Controllers\RegionsController::class, 'store']);

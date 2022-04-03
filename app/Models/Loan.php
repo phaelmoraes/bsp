@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Consumer;
-use App\Models\Loan;
 use App\Models\LoanInstallment;
 
 class Loan extends Model

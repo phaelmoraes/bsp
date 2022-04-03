@@ -28,14 +28,14 @@ class LoanController extends Controller
         
 
         if (empty($region)){
-            $users = User::simplePaginate(5);
-            $regions = Region::simplePaginate(5);
+            $users = User::all();
+            $regions = Region::all();
             return view('collaborators', compact('users', 'regions'));
         }
         if (count($consumers)==0){
-            $users = User::simplePaginate(5);
-            $regions = Region::simplePaginate(5);
-            $consumers = Consumer::simplePaginate(5);
+            $users = User::all();
+            $regions = Region::all();
+            $consumers = Consumer::all();
             return view('consumers', compact('users', 'regions', 'consumers'));
         }
 
@@ -74,6 +74,9 @@ class LoanController extends Controller
     {
         // dd($request->all());
         $user = User::find($request->user_id);
+        $user->balance = $user->balance - $this->removeMask($request->price);
+        // dd($user);
+        $user->save();
         $consumer = Consumer::find($request->consumer);
 
         $total_price = (($request->fees/100)+1) *$this->removeMask($request->price);
@@ -103,6 +106,7 @@ class LoanController extends Controller
             $loan_installments->status = "opened";
             $loan_installments->amount_paid = 0;
             $loan_installments->loan_id = $loan->id;
+            $loan_installments->user_id = $loan->user_id;
 
             $loan_installments->save();
             // echo $i;
@@ -149,12 +153,14 @@ class LoanController extends Controller
     {
         $installment = LoanInstallment::find($id);
         $loan = Loan::find($installment->loan_id);
-
+        $user = User::find($loan->user_id);
+        // dd($user);
         if($installment->status != 'paid'){
             if($request->status){
 
                 $installment->status = 'delayed';
                 $installment->updated_at = date("Y-m-d H:i:s");
+                $installment->user_id = $loan->user_id;
                 $installment->save();
     
                 $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
@@ -184,6 +190,7 @@ class LoanController extends Controller
                 if(empty($installment->amount_paid)){
                     $installment->amount_paid = 0;
                 }
+                $installment->user_id = $loan->user_id;
                 $installment->save();
     
                 // dd($installment, $loan);
@@ -191,6 +198,9 @@ class LoanController extends Controller
                 $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
                 $amount_paid = $loan_installments->sum('amount_paid');
                 $newPrice = $loan->total_price - $amount_paid;
+
+                $user->balance = $user->balance + $installment->amount_paid;
+                $user->save();
 
                 return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));   
             }
@@ -202,6 +212,7 @@ class LoanController extends Controller
             if(empty($installment->amount_paid)){
                 $installment->amount_paid = 0;
             }
+            $installment->user_id = $loan->user_id;
     
             $installment->save();
     
@@ -220,6 +231,9 @@ class LoanController extends Controller
 
         $amount_paid = $loan_installments->sum('amount_paid');
         $newPrice = $loan->total_price - $amount_paid;
+
+        $user->balance = $user->balance + $installment->amount_paid;
+        $user->save();
 
         return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
 
@@ -268,6 +282,8 @@ class LoanController extends Controller
 
         $newLoan = new Loan();
         $user = User::find($request->user_id);
+        $user->balance = $user->balance - $this->removeMask($request->price);
+        $user->save();
         $consumer = Consumer::find($request->consumer);
 
         $total_price = (($request->fees/100)+1) * $this->removeMask($request->price);
@@ -285,7 +301,6 @@ class LoanController extends Controller
         $newLoan->region_id = $user->region_id;
 
         $newLoan->save();
-
         
         $price = $newLoan->total_price / $newLoan->installments;
 
