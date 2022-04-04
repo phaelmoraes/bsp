@@ -266,7 +266,11 @@ class LoanController extends Controller
         // dd('cancel', $id);
         $loan = Loan::find($id);
         $loan->status = 'cancelled';
+        $user = User::find($loan->user_id);
+        $user->balance = $user->balance + $loan->price;
+        // dd($loan, $user);
         $loan->save();
+        $user->save();
         
         return redirect()->route('loan');
 
