@@ -587,7 +587,7 @@
         <div class="col-lg-6">
                 <div class="card card-outline card-danger">
                   <div class="card-header">
-                    <h3 class="card-title">Realizar empréstimo</h3>
+                    <h3 class="card-title">Realizar Empréstimo</h3>
                         <div class="card-tools">
                       <!-- Buttons, labels, and many other things can be placed here! -->
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
