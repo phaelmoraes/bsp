@@ -19,8 +19,20 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function loanInstallmentsToday($id){
+
+    //     // dd($id);
+    //     $day = date("Y-m-d");
+    //     // dd($day);
+    //     $value = LoanInstallment::whereDate('updated_at', $day)->where('user_id', $id)->sum('amount_paid');
+    //     // dd($day, $value);
+    //     return $value;
+    // }
+
     public function index()
     {
+        // $user = $this->loanInstallmentsToday(Auth::id());
+        // dd($user);
         $consumers = Consumer::all();
         $id = Auth::id();
         $collaborator = User::find($id);
@@ -153,14 +165,14 @@ class LoanController extends Controller
     {
         $installment = LoanInstallment::find($id);
         $loan = Loan::find($installment->loan_id);
-        $user = User::find($loan->user_id);
-        // dd($user);
+        $user = User::find(Auth::id());
+        // dd($loan, $user);
         if($installment->status != 'paid'){
             if($request->status){
 
                 $installment->status = 'delayed';
                 $installment->updated_at = date("Y-m-d H:i:s");
-                $installment->user_id = $loan->user_id;
+                $installment->user_id = $user->id;
                 $installment->save();
     
                 $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
@@ -190,7 +202,7 @@ class LoanController extends Controller
                 if(empty($installment->amount_paid)){
                     $installment->amount_paid = 0;
                 }
-                $installment->user_id = $loan->user_id;
+                $installment->user_id = $user->id;
                 $installment->save();
     
                 // dd($installment, $loan);
@@ -200,6 +212,7 @@ class LoanController extends Controller
                 $newPrice = $loan->total_price - $amount_paid;
 
                 $user->balance = $user->balance + $installment->amount_paid;
+                // dd($user);
                 $user->save();
 
                 return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));   
@@ -212,7 +225,7 @@ class LoanController extends Controller
             if(empty($installment->amount_paid)){
                 $installment->amount_paid = 0;
             }
-            $installment->user_id = $loan->user_id;
+            $installment->user_id = $user->id;
     
             $installment->save();
     
