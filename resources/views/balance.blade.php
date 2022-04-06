@@ -330,6 +330,7 @@
                                   <th scope="col">Saldo</th>
                                   <th scope="col">Empréstimos de Hoje</th>
                                   <th scope="col">Recebido hoje</th>
+                                  <th scope="col">Opções</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -339,6 +340,9 @@
                                   <td>R$ {{ number_format($user->balance,2,",",".") }}</td>
                                   <td>R$ {{ number_format($user->loanToday($user->id),2,",",".") }}</td>
                                   <td>R$ {{ number_format($user->loanInstallmentsToday($user->id),2,",",".") }}</td>
+                                  <td>
+                                    <a href="{{url('balance/zerar/'.$user->id)}}" class="btn btn-danger btn-sm">Zerar Saldo</a>
+                                  </td>
                                 </tr>
                                 @endforeach
 
@@ -388,7 +392,7 @@
 
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
                         </form>
                     </div>
                     

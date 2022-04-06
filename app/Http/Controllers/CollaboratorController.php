@@ -36,7 +36,7 @@ class CollaboratorController extends Controller
      */
     public function create($request)
     {
-        //
+        //zerarBalance
     }
 
     /**
@@ -140,6 +140,16 @@ class CollaboratorController extends Controller
         $user = User::find($request->collaborator);
         $user->balance = $user->balance + $this->removeMask($request->value);
         $user->save();
+
+        return redirect()->route('balance');
+    }
+
+    public function zerarBalance($id)
+    {
+        $user = User::find($id);
+        $user->balance = 0.00;
+        $user->save();
+        // dd($user);
 
         return redirect()->route('balance');
     }

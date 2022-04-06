@@ -35,6 +35,7 @@ Route::get('/loan/finish/{id}', [App\Http\Controllers\LoanController::class, 'fi
 Route::get('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'index'])->name('collaborators');
 Route::post('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'store']);
 Route::get('/balance', [App\Http\Controllers\CollaboratorController::class, 'balance'])->name('balance');
+Route::get('/balance/zerar/{id}', [App\Http\Controllers\CollaboratorController::class, 'zerarBalance'])->name('zerarBalance');
 Route::post('/AddBalance', [App\Http\Controllers\CollaboratorController::class, 'AddBalance'])->name('AddBalance');
 Route::get('/collaborator/{id}', [App\Http\Controllers\CollaboratorController::class, 'edit'])->name('collaboratorEdit');
 Route::post('/collaborator/edit/{id}', [App\Http\Controllers\CollaboratorController::class, 'update'])->name('collaboratorEditPost');
