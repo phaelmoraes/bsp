@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Consumer;
 use App\Models\Contact;
 use App\Models\Address;
+use App\Models\Spend;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 
 class ConsumerController extends Controller
 {
@@ -22,6 +26,40 @@ class ConsumerController extends Controller
         return view('consumers', compact('consumers', 'contacts'));
     }
 
+    public function accepted($id)
+    {
+        $spend = Spend::find($id);
+        $user = User::find($spend->user_id);
+
+        // dd($spend->collaborator($user->id));
+
+        $spend->status = "accepted";
+        $spend->save();
+
+        $user->balance = $user->balance - $spend->price;
+        $user->save();
+
+        return redirect()->route('spend');
+    }
+
+    public function denied($id)
+    {
+        // dd('negado', $id);
+
+        $spend = Spend::find($id);
+        $spend->status = "denied";
+        $spend->save();
+        // dd($spend);
+        return redirect()->route('spend');
+    }
+
+    public function removeMask($value){
+        $number = str_replace(".", "", $value);
+        $number = str_replace(",", ".", $number);
+
+        return $number;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -30,6 +68,35 @@ class ConsumerController extends Controller
     public function create()
     {
         //
+    }
+
+    public function spend()
+    {
+        $id = Auth::id();
+
+        // dd($id);
+        $analyze = Spend::where('status', 'analyze')->where('user_id', $id)->get();
+        $spend = Spend::where('status','!=', 'analyze')->where('user_id', $id)->get();
+        $allSpend = Spend::where('status', 'analyze')->get();
+
+        // dd($analyze);
+        return view('spend', compact('analyze', 'spend', 'allSpend'));
+    }
+
+    public function spendAdd(Request $request)
+    {   
+        $user = User::find($request->id);
+        
+        $spend = new Spend();
+        $spend->price = $this->removeMask($request->price);
+        $spend->description = $request->desc;
+        $spend->status = 'analyze';
+        $spend->user_id = $request->id;
+        $spend->region_id = $user->region_id;
+
+        $spend->save();
+        // dd($spend);
+        return redirect()->route('spend');
     }
 
     /**

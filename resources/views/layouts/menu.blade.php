@@ -31,6 +31,12 @@
     </a>
 </li>
 <li class="nav-item">
+    <a href="{{ route('spend') }}" class="nav-link">
+    <i class="nav-icon fas fa-solid fa-comment-dollar"></i>
+        <p>Gastos</p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ route('balance') }}" class="nav-link">
         <i class="nav-icon fas fa-solid fa-coins"></i>
         <p>Saldo</p>

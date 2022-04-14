@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Route::get('/consumers', [App\Http\Controllers\ConsumerController::class, 'index
 Route::post('/consumers', [App\Http\Controllers\ConsumerController::class, 'store']);
 Route::get('/consumer/{id}', [App\Http\Controllers\ConsumerController::class, 'edit'])->name('consumerEdit');
 Route::post('/consumer/edit/{id}', [App\Http\Controllers\ConsumerController::class, 'update'])->name('consumerEditPost');
+Route::get('/spend', [App\Http\Controllers\ConsumerController::class, 'spend'])->name('spend');
+Route::post('/spend', [App\Http\Controllers\ConsumerController::class, 'spendAdd'])->name('spendAdd');
+Route::get('/spend/accepted/{id}', [App\Http\Controllers\ConsumerController::class, 'accepted'])->name('accepted');
+Route::get('/spend/denied/{id}', [App\Http\Controllers\ConsumerController::class, 'denied'])->name('denied');
 Route::get('/loan', [App\Http\Controllers\LoanController::class, 'index'])->name('loan');
 Route::post('/loan', [App\Http\Controllers\LoanController::class, 'store'])->name('borrow');
 Route::get('/loan/{id}', [App\Http\Controllers\LoanController::class, 'show'])->name('showLoan');
