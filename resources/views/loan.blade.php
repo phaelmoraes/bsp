@@ -366,13 +366,6 @@
                                                             <div class="col-md-2">
                                                                 <b>Opções:</b>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" id="gridCheck" name="balance">
-                                                                    <label class="form-check-label" for="gridCheck">
-                                                                        Usar Saldo
-                                                                    </label>
-                                                                </div>
-
-                                                                <div class="form-check">
                                                                 <input class="form-check-input" type="checkbox" id="gridCheck" name="status">
                                                                     <label class="form-check-label" for="gridCheck">
                                                                         Atraso
