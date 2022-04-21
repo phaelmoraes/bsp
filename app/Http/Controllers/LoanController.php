@@ -167,6 +167,7 @@ class LoanController extends Controller
         $loan = Loan::find($installment->loan_id);
         $user = User::find(Auth::id());
         // dd($loan, $user);
+
         if($installment->status != 'paid'){
             if($request->status){
 
@@ -232,7 +233,10 @@ class LoanController extends Controller
             if($installment->amount_paid != $installment->price){
                 $loan->balance = $loan->balance + ($installment->amount_paid - $installment->price);
                 $loan->save();
-            }  
+            }
+            
+            $user->balance = $user->balance + $installment->amount_paid;
+            $user->save();
         }
         
         
@@ -245,8 +249,7 @@ class LoanController extends Controller
         $amount_paid = $loan_installments->sum('amount_paid');
         $newPrice = $loan->total_price - $amount_paid;
 
-        $user->balance = $user->balance + $installment->amount_paid;
-        $user->save();
+        
 
         return view('loan', compact('loan', 'loan_installments', 'newPrice', 'amount_paid'));
 
