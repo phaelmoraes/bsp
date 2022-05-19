@@ -125,7 +125,7 @@
         <div class="float-right d-none d-sm-block">
             <b>Version</b> 1.0
         </div>
-        <strong>Copyright &copy; 2021 <a href="https://www.instagram.com/ismaelscf/">Ismael S.C. Filho</a>.</strong> All rights
+        <strong>Copyright &copy; 2021 <a href="#">BPS Soluções</a>.</strong> All rights
         reserved.
     </footer>
 </div>
