@@ -726,7 +726,9 @@
 
                                 <tr>
                                   <th scope="col">Cliente</th>
-                                  <th scope="col">Valor</th> 
+                                  <th scope="col">Valor Solicitado</th> 
+                                  <th scope="col">Valor Total</th>
+                                  <th scope="col">Valor Pago</th>
                                   <th scope="col">Opções</th>
 
                                 </tr>
@@ -736,6 +738,8 @@
                                 <tr>
                                   <td>{{$loan->consumer->name}}</td>
                                   <td> R$ {{number_format($loan->price,2,",",".")}}</td>
+                                  <td> R$ {{number_format($loan->total_price,2,",",".")}}</td>
+                                  <td> R$ {{number_format($loan->amount_paid($loan->id),2,",",".")}}</td>
                                   <td>
                                     <a href="{{url('loan/'.$loan->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
                                   </td>

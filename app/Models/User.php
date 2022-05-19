@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function loanToday($id){
         $day = date("Y-m-d");
-        $value = Loan::whereDate('created_at', $day)->where('user_id', $id)->sum('price');
+        $value = Loan::whereDate('created_at', $day)->where('status', '!=','cancelled')->where('user_id', $id)->sum('price');
         // dd($day, $value);
         return $value;
     }
