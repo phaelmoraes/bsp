@@ -69,6 +69,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Cliente: {{ $loan->Consumer->name }}</h5>
                                 <p class="card-text">
+                                    Data Empréstimo : {{date("d/m/Y", strtotime($loan->created_at))}}</br>
                                     Valor: R$ {{ number_format($loan->price,2,",",".") }}</br>
                                     Valor Total: R$ {{ number_format($loan->total_price,2,",",".") }}</br>
                                     Valor Pago: R$ {{ number_format($loan->amount_paid($loan->id),2,",",".") }}</br>
@@ -108,7 +109,9 @@
                                                 @endif
                                                 <br>
                                                 Email: {{$loan->Consumer->email}}<br>
-                                                Data de Nascimento: {{ date('d-m-Y', strtotime($loan->Consumer->birthday)) }}<br>
+                                                @if(isset($loan->Consumer->birthday))
+                                                Data de Nascimento: {{ date('d/m/Y', strtotime($loan->Consumer->birthday)) }}<br>
+                                                @endif
                                                 Gênero: 
                                                 @if($loan->Consumer->gender == 'MALE')
                                                         Masculino
