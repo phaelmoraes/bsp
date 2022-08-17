@@ -48,6 +48,10 @@ Route::post('/region', [App\Http\Controllers\RegionsController::class, 'store'])
 Route::get('/region/{id}', [App\Http\Controllers\RegionsController::class, 'edit'])->name('regionEdit');
 Route::post('/region/edit/{id}', [App\Http\Controllers\RegionsController::class, 'update'])->name('regionEditPost');
 
+Route::get('/inspection', [App\Http\Controllers\InspectionController::class, 'index'])->name('inspection');
+Route::get('/inspection/week', [App\Http\Controllers\InspectionController::class, 'week'])->name('week');
+Route::get('/inspection/month', [App\Http\Controllers\InspectionController::class, 'month'])->name('month');
+Route::get('/inspection/year', [App\Http\Controllers\InspectionController::class, 'year'])->name('year');
 
 
 Route::get('/contact/{id}/{consumerId}', [App\Http\Controllers\ContactsController::class, 'delete'])->name('destroy');

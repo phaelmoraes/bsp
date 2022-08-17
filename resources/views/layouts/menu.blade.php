@@ -42,3 +42,11 @@
         <p>Saldo</p>
     </a>
 </li>
+@if( $permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('week') }}" class="nav-link">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Acompanhar</p>
+    </a>
+</li>
+@endif
