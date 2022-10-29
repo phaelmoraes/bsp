@@ -201,7 +201,7 @@
                                             </select>
                                         </div>
                                         <div class="col">
-                                        <label for="lastName">Colaborador</label>
+                                        <label for="lastName">Colaborador2</label>
                                         <input type="text" class="form-control" id="collaborator" name="collaborator" value="{{ Auth::user()->name }}" readonly/>
                                         <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->id }}"/>
                                         </div>
@@ -211,6 +211,7 @@
                                         <div class="col">
                                             <label for="name">Valor</label>
                                             <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="price" name="price" value="{{number_format($newPrice,2,',','.') }}" required>
+                                            <input type="hidden" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="price" name="old_price" value="{{number_format($newPrice,2,',','.') }}">
                                         </div>
 
                                         <div class="col">

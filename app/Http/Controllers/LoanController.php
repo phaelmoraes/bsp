@@ -33,6 +33,7 @@ class LoanController extends Controller
     {
         // $user = $this->loanInstallmentsToday(Auth::id());
         // dd($user);
+        $day = date("d");
         $consumers = Consumer::all();
         $id = Auth::id();
         $collaborator = User::find($id);
@@ -53,9 +54,10 @@ class LoanController extends Controller
 
         $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
         $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
-        // dd('aaaa', $loans);
+        $loansFinishedDay = Loan::whereDay("updated_at",$day)->where("status", "paid")->where('region_id', $region->id)->get();
+        // dd('aaaa', $loansFinishedDay);
         
-        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished'));
+        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished', 'loansFinishedDay'));
 
     }
 
@@ -302,7 +304,12 @@ class LoanController extends Controller
 
         $newLoan = new Loan();
         $user = User::find($request->user_id);
-        $user->balance = $user->balance - $this->removeMask($request->price);
+
+        if($this->removeMask($request->price) >$this->removeMask($request->old_price)){
+            $user->balance = $user->balance - ($this->removeMask($request->price) - $this->removeMask($request->old_price));
+            // dd($user->balance);
+        }
+        // $user->balance = $user->balance - $this->removeMask($request->price); -- lógica de saldo antiga
         $user->save();
         $consumer = Consumer::find($request->consumer);
 

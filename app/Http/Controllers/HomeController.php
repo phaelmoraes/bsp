@@ -27,13 +27,54 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function homeCompact()
+    {
+        if( Auth::user()->function == 'Administrator'){
+            $month = date("m");
+            $day = date("d");
+            $loans = Loan::whereMonth("created_at",$month)->get();
+
+            $loansFinished = Loan::whereDay("updated_at",$day)->where("status", "paid")->get();
+            // dd($loansFinished);
+            return view('home', compact('loans', 'loansFinished'));
+        }
+        else {
+            $consumers = Consumer::all();
+            $id = Auth::id();
+            $collaborator = User::find($id);
+            $region = Region::find($collaborator->region_id);
+            
+
+            if (empty($region)){
+                $users = User::simplePaginate(5);
+                $regions = Region::simplePaginate(5);
+                return view('collaborators', compact('users', 'regions'));
+            }
+            if (count($consumers)==0){
+                $users = User::simplePaginate(5);
+                $regions = Region::simplePaginate(5);
+                $consumers = Consumer::simplePaginate(5);
+                return view('consumers', compact('users', 'regions', 'consumers'));
+            }
+
+            $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
+            $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
+            // dd('aaaa', $loans);
+            
+            return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished'));
+        }
+        
+    }
     public function index()
     {
         if( Auth::user()->function == 'Administrator'){
+            $day = date("d");
             $loans = Loan::all();
             
-            // dd($loans->region());
-            return view('home', compact('loans'));
+            $loansFinished = Loan::whereDay("updated_at",$day)->where("status", "paid")->get();
+
+            // dd($loansFinished);
+            return view('home', compact('loans', 'loansFinished'));
         }
         else {
             $consumers = Consumer::all();
