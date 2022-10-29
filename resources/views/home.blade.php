@@ -9,12 +9,14 @@
 @section('content')
 
 <div class="content">
+<a href="{{url('homeComplete')}}"class="btn btn-success  btn-sm">Visualização Completa</a>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-outline card-danger">
                 <div class="card-header">
                     <h3 class="card-title">Empréstimo</h3>
+                        
                         <div class="card-tools">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
