@@ -41,8 +41,10 @@ class HomeController extends Controller
         else {
             $consumers = Consumer::all();
             $id = Auth::id();
+            $day = date("d");
             $collaborator = User::find($id);
             $region = Region::find($collaborator->region_id);
+            
             
 
             if (empty($region)){
@@ -59,9 +61,10 @@ class HomeController extends Controller
 
             $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
             $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
+            $loansFinishedDay = Loan::whereDay("updated_at",$day)->where("status", "paid")->where('region_id', $region->id)->get();
             // dd('aaaa', $loans);
             
-            return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished'));
+            return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished', 'loansFinishedDay'));
         }
         
     }

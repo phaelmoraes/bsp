@@ -246,7 +246,7 @@ class LoanController extends Controller
 
         $loan_installments = LoanInstallment::where('loan_id', $installment->loan_id)->get();
         // $teste = $loan_installments->sum('amount_paid');
-        // dd($teste);
+        // dd("te3ste");
 
         $amount_paid = $loan_installments->sum('amount_paid');
         $newPrice = $loan->total_price - $amount_paid;

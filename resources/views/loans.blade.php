@@ -1093,15 +1093,18 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                @foreach($loansFinishedDay as $loanFDay)
-                                <tr>
-                                  <td>{{$loanFDay->consumer->name}}</td>
-                                  <td> R$ {{number_format($loanFDay->price,2,",",".")}}</td>
-                                  <td>
-                                    <a href="{{url('loan/'.$loanFDay->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
-                                  </td>
-                                </tr>
-                                @endforeach
+                                @if(isset($loansFinishedDay))
+                                    @foreach($loansFinishedDay as $loanFDay)
+                                    <tr>
+                                    <td>{{$loanFDay->consumer->name}}</td>
+                                    <td> R$ {{number_format($loanFDay->price,2,",",".")}}</td>
+                                    <td>
+                                        <a href="{{url('loan/'.$loanFDay->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
+                                    </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                                
 
                                 
                               </tbody>
