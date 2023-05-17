@@ -20,6 +20,8 @@ class InspectionController extends Controller
         $nRegions = Loan::where("status", "!=", "cancelled")->distinct()->get('region_id');
         $nRegions = json_decode (json_encode ($nRegions), FALSE);
 
+        // dd($nRegions);
+
         $info    = [];
         foreach($nRegions as $region){
             $loans = Loan::select('id')->where("region_id", "=", $region->region_id)->where("status", "!=", "cancelled")->get();
@@ -30,6 +32,8 @@ class InspectionController extends Controller
                 array_push($info, $data);
             }
         }
+
+        // dd($info);
         
         $info = json_decode (json_encode ($info), FALSE);
 
@@ -45,7 +49,7 @@ class InspectionController extends Controller
         ->groupBy("region_id")
         ->get();
         
-        
+        // dd($regions);
         
         $loanInstallments = [];
 
@@ -81,9 +85,11 @@ class InspectionController extends Controller
         $regions = json_decode (json_encode ($regions), FALSE);
         $loanInstallments = json_decode (json_encode ($loanInstallments), FALSE);
 
+        // dd($regions, $loanInstallments);
+
         $content = $this->getContent($regions, $loanInstallments);
 
-        // dd($regions, $loanInstallments);
+        // dd($content);
         return view('inspection', compact('content'));
     }
 
@@ -332,6 +338,8 @@ class InspectionController extends Controller
                     $content['total_raised'] = $installment->total_price;
                 }
             }
+
+            $content['amount_receivable'] = $content['total_value'] - $content['total_raised'];
             
             array_push($data, $content);
         }

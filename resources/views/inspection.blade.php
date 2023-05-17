@@ -38,6 +38,7 @@
                                     <th>Valor Total sem juros</th>
                                     <th>Juros Total</th>
                                     <th>Total Recebido</th>
+                                    <th>Total a Receber</th>
                                 </tr>
                             </thead>
 
@@ -50,6 +51,7 @@
                                   <td>R$ {{ number_format($content->value,2,",",".") }}</td>
                                   <td>R$ {{ number_format($content->fees,2,",",".") }}</td>
                                   <td>R$ {{ number_format($content->total_raised,2,",",".") }}</td>
+                                  <td>R$ {{ number_format($content->amount_receivable,2,",",".") }}</td>
                                 </tr>
                                 @endforeach
 
