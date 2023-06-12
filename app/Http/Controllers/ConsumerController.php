@@ -182,7 +182,8 @@ class ConsumerController extends Controller
                 DB::rollBack();                
             }
         } catch (Exception $exception) {
-            $msg = $exception->getMessage();
+            // $msg = $exception->getMessage();
+            $msg = 'Erro ao criar, Instabilidade no Banco de Dados.';
             // return $msg;
         }
 
