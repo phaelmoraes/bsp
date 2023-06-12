@@ -356,7 +356,7 @@ class ConsumerController extends Controller
         // dd($address);
 
 
-        return view('consumer', compact('consumer', 'contacts', 'address', 'msg'));
+        return view('consumer', compact('consumer', 'contacts', 'address'));
 
     }
 

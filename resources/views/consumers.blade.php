@@ -389,6 +389,9 @@
 </script>
 
 <div class="content">
+  <?php
+  $msg = $msg ?? null;
+  ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6">
