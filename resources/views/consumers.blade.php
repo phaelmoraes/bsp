@@ -404,6 +404,11 @@
                     <!-- /.card-tools -->
                   </div>
                   <div class="card-body">
+                    @if(isset($msg))
+                    <div class="alert alert-warning" role="alert">
+                      {{$msg}}
+                    </div>
+                    @endif
                     <form action="/consumers" method="POST">
                       @csrf
                       <div class="form-row">

@@ -8,6 +8,10 @@ use App\Models\Contact;
 use App\Models\Address;
 use App\Models\Spend;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Exception;
+
+
 
 use Illuminate\Support\Facades\Auth;
 
@@ -110,85 +114,161 @@ class ConsumerController extends Controller
         $contactsJSON = $request->contacts;
         $contacts = json_decode($contactsJSON);
 
-        $consumer = new Consumer();
+        //começa
+        DB::beginTransaction();
+        try {
+            
+            $consumer = new Consumer();
 
-        $consumer->name = $request->name;
-        
-        if(strlen($request->cpf_cnpj) >= 15) {
-            $consumer->type = "PJ";
-            $consumer->cnpj = $request->cpf_cnpj;
-        }
-        else {
-            $consumer->type = "PF";
-            $consumer->cpf = $request->cpf_cnpj;
-        }
-        // dd($request->all(), strlen($request->cpf_cnpj), $consumer);
-
-        $consumer->gender = $request->gender;
-        $consumer->email = $request->email;
-        $consumer->note = $request->note;
-        $consumer->birthday = $request->birth;
-
-        $consumer->save();
-
-        
-        if($contacts){
-            foreach($contacts as $newContact){
-                $contact = new Contact();
-                
-                if($newContact->type == "WHATSAPP"){
-                    $contact->type = $newContact->type;
-                    $contact->phone = $newContact->number;
-                }
-                if($newContact->type == "PHONE"){
-                    $contact->type = $newContact->type;
-                    $contact->phone = $newContact->number;            
-                }
-                if($newContact->type == "CELL_PHONE"){
-                    $contact->type = $newContact->type;
-                    $contact->phone = $newContact->number;            
-                }
-    
-                $contact->consumer_id = $consumer->id;
-                $contact->save();
+            $consumer->name = $request->name;
+            
+            if(strlen($request->cpf_cnpj) >= 15) {
+                $consumer->type = "PJ";
+                $consumer->cnpj = $request->cpf_cnpj;
             }
+            else {
+                $consumer->type = "PF";
+                $consumer->cpf = $request->cpf_cnpj;
+            }
+
+            $consumer->gender = $request->gender;
+            $consumer->email = $request->email;
+            $consumer->note = $request->note;
+            $consumer->birthday = $request->birth;
+
+            $teste = $consumer->save();
+
+            if($contacts){
+                foreach($contacts as $newContact){
+                    $contact = new Contact();
+                    
+                    if($newContact->type == "WHATSAPP"){
+                        $contact->type = $newContact->type;
+                        $contact->phone = $newContact->number;
+                    }
+                    if($newContact->type == "PHONE"){
+                        $contact->type = $newContact->type;
+                        $contact->phone = $newContact->number;            
+                    }
+                    if($newContact->type == "CELL_PHONE"){
+                        $contact->type = $newContact->type;
+                        $contact->phone = $newContact->number;            
+                    }
+        
+                    $contact->consumer_id = $consumer->id;
+                    $teste2 = $contact->save();
+                }
+            }
+            
+    
+            $address = new Address();
+            $address->street = $request->street;
+            $address->neighborhood = $request->neighborhood;
+            $address->building_number = $request->building_number;
+            $address->complement = $request->complement;
+            $address->city = $request->city;
+            $address->state = $request->state; 
+            $address->consumer_id = $consumer->id;
+    
+            $teste3 = $address->save();
+
+            // dd($teste, $teste2, $teste3);
+
+            if(isset($teste) && isset($teste) && isset($teste)){
+                DB::commit();
+                $msg = 'Criado com Sucesso';
+            }
+            else{
+                DB::rollBack();                
+            }
+        } catch (Exception $exception) {
+            $msg = $exception->getMessage();
+            // return $msg;
         }
+
+        // $msg = 'Criado com Sucesso';
+        // return $msg;
+        //termina
+
+    //     $consumer = new Consumer();
+
+    //     $consumer->name = $request->name;
+        
+    //     if(strlen($request->cpf_cnpj) >= 15) {
+    //         $consumer->type = "PJ";
+    //         $consumer->cnpj = $request->cpf_cnpj;
+    //     }
+    //     else {
+    //         $consumer->type = "PF";
+    //         $consumer->cpf = $request->cpf_cnpj;
+    //     }
+    //     // dd($request->all(), strlen($request->cpf_cnpj), $consumer);
+
+    //     $consumer->gender = $request->gender;
+    //     $consumer->email = $request->email;
+    //     $consumer->note = $request->note;
+    //     $consumer->birthday = $request->birth;
+
+    //     $consumer->save();
+
+        
+    //     if($contacts){
+    //         foreach($contacts as $newContact){
+    //             $contact = new Contact();
+                
+    //             if($newContact->type == "WHATSAPP"){
+    //                 $contact->type = $newContact->type;
+    //                 $contact->phone = $newContact->number;
+    //             }
+    //             if($newContact->type == "PHONE"){
+    //                 $contact->type = $newContact->type;
+    //                 $contact->phone = $newContact->number;            
+    //             }
+    //             if($newContact->type == "CELL_PHONE"){
+    //                 $contact->type = $newContact->type;
+    //                 $contact->phone = $newContact->number;            
+    //             }
+    
+    //             $contact->consumer_id = $consumer->id;
+    //             $contact->save();
+    //         }
+    //     }
         
 
-        $address = new Address();
-        $address->street = $request->street;
-        $address->neighborhood = $request->neighborhood;
-        $address->building_number = $request->building_number;
-        $address->complement = $request->complement;
-        $address->city = $request->city;
-        $address->state = $request->state; 
-        $address->consumer_id = $consumer->id;
+    //     $address = new Address();
+    //     $address->street = $request->street;
+    //     $address->neighborhood = $request->neighborhood;
+    //     $address->building_number = $request->building_number;
+    //     $address->complement = $request->complement;
+    //     $address->city = $request->city;
+    //     $address->state = $request->state; 
+    //     $address->consumer_id = $consumer->id;
 
-        $address->save();
+    //     $address->save();
 
 
         $consumers = Consumer::all();
 
-        return view('consumers', compact('consumers'));
+        return view('consumers', compact('consumers', 'msg'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
     public function edit($id)
     {
         $consumer = Consumer::find($id);
@@ -201,13 +281,13 @@ class ConsumerController extends Controller
         return view('consumer', compact('consumer', 'contacts', 'address'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
     public function update(Request $request, $id)
     {
         $consumer = Consumer::find($id);
@@ -275,7 +355,7 @@ class ConsumerController extends Controller
         // dd($address);
 
 
-        return view('consumer', compact('consumer', 'contacts', 'address'));
+        return view('consumer', compact('consumer', 'contacts', 'address', 'msg'));
 
     }
 
