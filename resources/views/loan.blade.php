@@ -47,7 +47,7 @@
                                     Cancelar
                                     </button>
 
-                                    @if($loan->amount_paid($loan->id) >= $loan->total_price)
+                                    @if($loan->amount_paid($loan->id) >= $loan->total_price || Auth::user()->function == "Administrator")
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucess">
                                     Finalizar
                                     </button>
