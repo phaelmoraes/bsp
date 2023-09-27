@@ -38,6 +38,7 @@ class RegionsController extends Controller
     {
         $region = new Region();
         $region->name = $request->route;
+        $region->user_id = $request->user_id;
         $region->save();
 
         $users = User::simplePaginate(10);

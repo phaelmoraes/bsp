@@ -53,8 +53,9 @@ class CollaboratorController extends Controller
         $collaborator->function = $request->function;
         $collaborator->region_id = $request->region;
         $collaborator->password = Hash::make($request->password);
+        $collaborator->user_id = $request->user_id;
 
-        //dd($collaborator);
+        // dd($collaborator);
 
         $collaborator->save();
 
@@ -105,8 +106,9 @@ class CollaboratorController extends Controller
         $collaborator->function = $request->function;
         $collaborator->region_id = $request->region;
         $collaborator->password = Hash::make($request->password);
+        $collaborator->edit_user_id = $request->user_id;
 
-        
+        // dd($collaborator);
 
         $collaborator->save();
 

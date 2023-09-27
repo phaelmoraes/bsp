@@ -101,6 +101,7 @@
                       <div class="form-row">
                         <div class="col">
                         <label for="name">Nome</label>
+                        <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{Auth::user()->id}}">
                           <input type="text" class="form-control" id="name" name="name" value="{{$collaborator->name}}" required>
                         </div>
                         <div class="col">

@@ -23,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'function',
+        'user_id',
+        'edit_user_id'
     ];
 
     public function region(){

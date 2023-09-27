@@ -58,43 +58,43 @@
 @section('content')
 
 <script>
-var contacts = [];
+  var contacts = [];
 
 
-function addContact() {
-  var phone = {}
-    phone.number = $("#contact").val();
-    phone.type = $("#typeContact").val();
+  function addContact() {
+    var phone = {}
+      phone.number = $("#contact").val();
+      phone.type = $("#typeContact").val();
 
-    contacts.push(phone);
+      contacts.push(phone);
 
-    $("#contact").val("");
+      $("#contact").val("");
 
-    $("#contacts").val(JSON.stringify(contacts))
-    listContacts();
-}
+      $("#contacts").val(JSON.stringify(contacts))
+      listContacts();
+  }
 
-function listContacts() {
-    var listContact = $('#list_contact');
+  function listContacts() {
+      var listContact = $('#list_contact');
 
-    $("li").remove(".list-group-item, .avatar");
+      $("li").remove(".list-group-item, .avatar");
 
-    contacts.forEach((phone, index) => {
-        var html = `
-                <li class="list-group-item">
-                    Contato: ${phone.number}
-                    <a href="javascript:void%200" onclick="deleteContact('${index}', '${phone.number}')" class="secondary-content"><i style="color:#01579b" class="material-icons">delete</i></a>
-                </li>`;
-        listContact.append(html);
-    });
-}
+      contacts.forEach((phone, index) => {
+          var html = `
+                  <li class="list-group-item">
+                      Contato: ${phone.number}
+                      <a href="javascript:void%200" onclick="deleteContact('${index}', '${phone.number}')" class="secondary-content"><i style="color:#01579b" class="material-icons">delete</i></a>
+                  </li>`;
+          listContact.append(html);
+      });
+  }
 
-function deleteContact(index, phone) {
-    if(confirm(`Deseja remover este contato - ${phone} ?`)) {
-        contacts.splice(index, 1);
-        listContacts()
-    }
-}
+  function deleteContact(index, phone) {
+      if(confirm(`Deseja remover este contato - ${phone} ?`)) {
+          contacts.splice(index, 1);
+          listContacts()
+      }
+  }
 </script>
 
 
