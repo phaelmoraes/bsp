@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>Meu Redirect</title>
 
-    <meta http-equiv="refresh" content="5; URL='https://bpssolucoes.com'"/>
+    <meta http-equiv="refresh" content="0; URL='https://bpssolucoes.com'"/>
 </head>
 <body>
 ...
