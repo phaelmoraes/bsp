@@ -25,7 +25,7 @@
         <div class="card-body register-card-body">
             <p class="login-box-msg">Register a new membership</p>
 
-            <form method="post" action="{{ route('register') }}">
+            <form method="post" action="#">
                 @csrf
 
                 <div class="input-group mb-3">
@@ -95,9 +95,6 @@
                         </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                    </div>
                     <!-- /.col -->
                 </div>
             </form>
