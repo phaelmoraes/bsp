@@ -22,6 +22,8 @@ Route::get('/demo-search', [App\Http\Controllers\SearchController::class, 'index
 Route::get('/autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('autocomplete');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'homeCompact'])->name('home');
+// Route::get('/register', [App\Http\Controllers\HomeController::class, 'homeCompact'])->name('home');
+
 Route::get('/homeComplete', [App\Http\Controllers\HomeController::class, 'index'])->name('homeComplete');
 Route::get('/consumers', [App\Http\Controllers\ConsumerController::class, 'index'])->name('consumers');
 Route::post('/consumers', [App\Http\Controllers\ConsumerController::class, 'store']);
