@@ -59,6 +59,8 @@
     @yield('third_party_stylesheets')
 
     @stack('page_css')
+    @stack('css')
+    @stack('css_dropzone')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

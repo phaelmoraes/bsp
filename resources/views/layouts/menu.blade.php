@@ -50,3 +50,30 @@
     </a>
 </li>
 @endif
+
+@if( $permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('shop') }}" class="nav-link">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Loja</p>
+    </a>
+</li>
+@endif
+
+@if( $permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('motos') }}" class="nav-link">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Motos</p>
+    </a>
+</li>
+@endif
+
+@if( $permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('vendedor') }}" class="nav-link">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Cadastro Vendedores</p>
+    </a>
+</li>
+@endif

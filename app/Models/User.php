@@ -24,11 +24,16 @@ class User extends Authenticatable
         'password',
         'function',
         'user_id',
-        'edit_user_id'
+        'edit_user_id',
+        'loja_id'
     ];
 
     public function region(){
         return $this->hasOne('App\Models\Region');
+    }
+
+    public function loja(){
+        return $this->belongsTo(Loja::class);
     }
 
     /**

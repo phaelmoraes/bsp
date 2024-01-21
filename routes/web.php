@@ -22,6 +22,7 @@ Route::get('/demo-search', [App\Http\Controllers\SearchController::class, 'index
 Route::get('/autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('autocomplete');
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'homeCompact'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'homeCompact']);
 // Route::get('/register', [App\Http\Controllers\HomeController::class, 'homeCompact'])->name('home');
 
 Route::get('/homeComplete', [App\Http\Controllers\HomeController::class, 'index'])->name('homeComplete')->middleware('auth');
@@ -59,8 +60,17 @@ Route::get('/inspection/year', [App\Http\Controllers\InspectionController::class
 
 Route::get('/contact/{id}/{consumerId}', [App\Http\Controllers\ContactsController::class, 'delete'])->name('destroy')->middleware('auth');
 
+Route::get('/shop', [App\Http\Controllers\ShopController::class, 'index'])->name('shop')->middleware('auth');
+Route::get('/motos', [App\Http\Controllers\ShopController::class, 'motos'])->name('motos')->middleware('auth');
+Route::get('/moto/{id}', [App\Http\Controllers\ShopController::class, 'verMoto'])->name('verMoto')->middleware('auth');
 
+Route::post('/fabricante', [App\Http\Controllers\ShopController::class, 'salvarFabricante'])->name('salvarFabricante')->middleware('auth');
+Route::post('/moto', [App\Http\Controllers\ShopController::class, 'salvarMoto'])->name('salvarMoto')->middleware('auth');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/vendedor', [App\Http\Controllers\LojaController::class, 'index'])->name('vendedor')->middleware('auth');
+Route::post('/vendedor', [App\Http\Controllers\LojaController::class, 'salvarVendedor'])->name('salvarVendedor')->middleware('auth');
+Route::post('/loja', [App\Http\Controllers\LojaController::class, 'salvarLoja'])->name('salvarLoja')->middleware('auth');
+
 
 Auth::routes();
