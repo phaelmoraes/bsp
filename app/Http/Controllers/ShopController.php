@@ -40,20 +40,7 @@ class ShopController extends Controller
 
     public function salvarMoto(Request $request)
     {
-        $uploadedFiles = [];
-
-        if ($request->hasFile('file')) {
-            foreach ($request->file('file') as $file) {
-                $filename = time() . '_' . $file->getClientOriginalName(); // Usando timestamp para garantir nomes únicos
-                $file->storeAs('img', $filename, 'public'); // Armazenando com um nome único na pasta public/img
-                $uploadedFiles[] = $filename;
-            }
-        }
-    
-        dd($request->all(), $uploadedFiles);
-
-
-
+        // dd($request->all());
         try {
             $moto = new Moto();
             $moto->fabricante_id = $request->manufacturer;
@@ -66,26 +53,21 @@ class ShopController extends Controller
             $moto->valor_credito = $request->valor_credito;
             $moto->ex_proprietario = $request->ex_proprietario;
             $moto->data_compra = $request->data_compra;
+            $moto->placa = $request->placa;
+            $moto->chassi = $request->chassi;
+            $moto->loja_id = $request->loja_id;
+            $moto->status = 'venda';
             // dd($moto);
             $moto->save();
 
-            if (!empty($request->photos[0])) {
-                foreach ($request->photos as $nomeArquivo) {
-                    // Constrói o caminho completo para o arquivo
-                    $caminhoImagem = 'img/' . $nomeArquivo;
-
-                    // Cria o diretório se não existir
-                    File::makeDirectory(public_path('img'), 0755, true, true);
-
-                    // Cria o arquivo vazio no diretório especificado
-                    file_put_contents(public_path($caminhoImagem), '');
-
-                    // Salva o caminho da imagem no banco de dados
+            if (!empty($request->file[0])) {
+                foreach ($request->file as $uploadedFile) {
+                    $caminhoImagem = $uploadedFile->store('img', 'public');
+            
                     $novaFoto = new Foto();
                     $novaFoto->caminho = $caminhoImagem;
                     $novaFoto->save();
-
-                    // Cria a relação entre a moto e a foto na tabela pivot
+            
                     $fotoRef = new MotoFoto();
                     $fotoRef->moto_id = $moto->id;
                     $fotoRef->foto_id = $novaFoto->id;
@@ -100,14 +82,14 @@ class ShopController extends Controller
     }
 
     public function motos(){
-        $motos = Moto::all();
+        $motos = Moto::where('status', 'venda')->get();
         return view('motos', compact('motos'));
     }
 
     public function verMoto($id){
         $moto = Moto::find($id);
         $fotos = $moto->fotos;
-        // dd($fotos);
+        // dd($moto);
         return view('verMotos', compact('moto', 'fotos'));
     }
 

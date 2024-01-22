@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRequest;
 use App\Models\Loja;
+use App\Models\Moto;
+use App\Models\Parcela;
+use App\Models\Venda;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class LojaController extends Controller
 {
@@ -53,5 +58,70 @@ class LojaController extends Controller
         }
 
         return view('vendedor', compact('lojas'));
+    }
+
+    public function venda(Request $request){
+        // dd($request->all());
+        DB::beginTransaction();
+        $moto = Moto::find($request->moto);
+        try {
+            
+            $venda = new Venda();
+            $venda->user_id = $request->user_id;
+            $venda->loja_id = $request->loja;
+            $venda->moto_id = $request->moto;
+            $venda->forma_pagamento = $request->pagamento;
+
+            $venda->cliente = $request->nome;
+            $venda->cpf = $request->cpf;
+
+            if($request->pagamento == 'vista'){
+                $venda->valor_total = $request->valorTotal;
+                $venda->lucro_estimado = $request->valorTotal - $moto->valor_compra;
+                $venda->valor_pago = $request->valorTotal;
+                $venda->status = 'pago';
+                $teste = $venda->save();
+                
+            }
+            else {
+                $venda->valor_total = $request->valorTotalParcelado;
+                $venda->parcelas = $request->parcelas;
+                $venda->valor_pago = $request->entrada;
+                $venda->lucro_estimado = $request->valorTotalParcelado - $moto->valor_compra;
+                $venda->status = 'aberto';
+                $teste1 = $venda->save();
+
+                $value = ($request->valorTotalParcelado - $request->entrada)/$request->parcelas;
+
+                for ($i=1; $i <= $request->parcelas; $i++) { 
+                    $parcela = new Parcela();
+                    $parcela->valor = $value;
+                    $parcela->n_parcela = $i;
+                    $parcela->status = 'aberto';
+                    $parcela->venda_id = $venda->id;
+                    $teste2 = $parcela->save();
+                }
+            }
+
+            $moto->status = 'vendida';
+            $teste3 = $moto->save();
+
+
+            if(isset($teste1) && isset($teste2) && isset($teste3)){
+                DB::commit();
+                return redirect('/motos')->with('success', 'Venda Realizada com sucesso.');
+            }elseif(isset($teste)){
+                DB::commit();
+                return redirect('/motos')->with('success', 'Venda Realizada com sucesso.');
+            }
+            else{
+                DB::rollBack();                
+            }
+        } catch (Exception $e) {
+                DB::rollBack();
+            return redirect('/motos')->with('error', 'Erro ao realizar venda: ' . $e->getMessage(). '. Por favor, tente novamente.');
+        }
+
+        // return $msg;
     }
 }

@@ -59,7 +59,7 @@
     @yield('third_party_stylesheets')
 
     @stack('page_css')
-    @stack('css')
+    @stack('gallery')
     @stack('css_dropzone')
 </head>
 

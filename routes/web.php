@@ -66,6 +66,7 @@ Route::get('/moto/{id}', [App\Http\Controllers\ShopController::class, 'verMoto']
 
 Route::post('/fabricante', [App\Http\Controllers\ShopController::class, 'salvarFabricante'])->name('salvarFabricante')->middleware('auth');
 Route::post('/moto', [App\Http\Controllers\ShopController::class, 'salvarMoto'])->name('salvarMoto')->middleware('auth');
+Route::post('/venda', [App\Http\Controllers\LojaController::class, 'venda'])->name('venda')->middleware('auth');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/vendedor', [App\Http\Controllers\LojaController::class, 'index'])->name('vendedor')->middleware('auth');
