@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Fabricante;
 use App\Models\Foto;
+use App\Models\Loja;
 use App\Models\Moto;
 use App\Models\MotoFoto;
 use Illuminate\Support\Facades\File;
@@ -19,10 +20,19 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function removeMask($value){
+        $number = str_replace(".", "", $value);
+        $number = str_replace(",", ".", $number);
+
+        return $number;
+    }
+
+
     public function index()
     {
         $fabricantes = Fabricante::all();
-        return view('shop', compact('fabricantes'));
+        $lojas = Loja::all();
+        return view('shop', compact('fabricantes', 'lojas'));
     }
 
     public function salvarFabricante(Request $request)
@@ -48,9 +58,9 @@ class ShopController extends Controller
             $moto->ano = $request->ano;
             $moto->km = $request->km;
             $moto->cilindrada = $request->cld;
-            $moto->valor_compra = $request->valor_compra;
-            $moto->valor_vista = $request->valor_vista;
-            $moto->valor_credito = $request->valor_credito;
+            $moto->valor_compra = $this->removeMask($request->valor_compra);
+            $moto->valor_vista = $this->removeMask($request->valor_vista);
+            $moto->valor_credito = $this->removeMask($request->valor_credito);
             $moto->ex_proprietario = $request->ex_proprietario;
             $moto->data_compra = $request->data_compra;
             $moto->placa = $request->placa;

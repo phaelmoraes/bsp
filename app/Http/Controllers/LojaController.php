@@ -13,15 +13,24 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRequest;
+use App\Models\Fabricante;
 use App\Models\Loja;
 use App\Models\Moto;
 use App\Models\Parcela;
 use App\Models\Venda;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LojaController extends Controller
 {
+    public function removeMask($value){
+        $number = str_replace(".", "", $value);
+        $number = str_replace(",", ".", $number);
+
+        return $number;
+    }
+
     public function index(){
         $lojas = Loja::all();
         $vendedores = User::where('function', 'Vendedor')->get();
@@ -74,24 +83,25 @@ class LojaController extends Controller
 
             $venda->cliente = $request->nome;
             $venda->cpf = $request->cpf;
+            // dd($venda);
 
             if($request->pagamento == 'vista'){
-                $venda->valor_total = $request->valorTotal;
-                $venda->lucro_estimado = $request->valorTotal - $moto->valor_compra;
-                $venda->valor_pago = $request->valorTotal;
+                $venda->valor_total = $this->removeMask($request->valorTotal);
+                $venda->lucro_estimado = $this->removeMask($request->valorTotal) - $this->removeMask($moto->valor_compra);
+                $venda->valor_pago = $this->removeMask($request->valorTotal);
                 $venda->status = 'pago';
-                $teste = $venda->save();
+                $teste = $venda->save(); 
                 
             }
             else {
-                $venda->valor_total = $request->valorTotalParcelado;
+                $venda->valor_total = $this->removeMask($request->valorTotalParcelado);
                 $venda->parcelas = $request->parcelas;
-                $venda->valor_pago = $request->entrada;
-                $venda->lucro_estimado = $request->valorTotalParcelado - $moto->valor_compra;
+                $venda->valor_pago = $this->removeMask($request->entrada);
+                $venda->lucro_estimado = $this->removeMask($request->valorTotalParcelado) - $this->removeMask($moto->valor_compra);
                 $venda->status = 'aberto';
                 $teste1 = $venda->save();
 
-                $value = ($request->valorTotalParcelado - $request->entrada)/$request->parcelas;
+                $value = ($this->removeMask($request->valorTotalParcelado) - $this->removeMask($request->entrada))/$request->parcelas;
 
                 for ($i=1; $i <= $request->parcelas; $i++) { 
                     $parcela = new Parcela();
@@ -109,19 +119,55 @@ class LojaController extends Controller
 
             if(isset($teste1) && isset($teste2) && isset($teste3)){
                 DB::commit();
-                return redirect('/motos')->with('success', 'Venda Realizada com sucesso.');
+                return redirect()->route('buscar_motos', ['loja' => $moto->loja_id, 'fabricante' => 0])->with('success', 'Venda Realizada com sucesso.');
+
+                return redirect()->route('buscar_motos', ['loja' => $moto->loja_id, 'fabricante' => 0])->with('success', 'Venda Realizada com sucesso.');
             }elseif(isset($teste)){
                 DB::commit();
-                return redirect('/motos')->with('success', 'Venda Realizada com sucesso.');
+                return redirect()->route('buscar_motos', ['loja' => $moto->loja_id, 'fabricante' => 0])->with('success', 'Venda Realizada com sucesso.');
             }
             else{
                 DB::rollBack();                
             }
         } catch (Exception $e) {
                 DB::rollBack();
-            return redirect('/motos')->with('error', 'Erro ao realizar venda: ' . $e->getMessage(). '. Por favor, tente novamente.');
+            return redirect()->route('buscar_motos', ['loja' => $moto->loja_id, 'fabricante' => 0])->with('error', 'Erro ao realizar venda: ' . $e->getMessage(). '. Por favor, tente novamente.');
         }
 
         // return $msg;
+    }
+
+    public function buscar_motos($loja, $fabricante){
+        // dd($fabricante, $loja);
+        $fabricantes = Fabricante::all();
+        $lojas = Loja::all();
+
+        $motosQuery = Moto::where('status', 'venda');
+
+        if ($loja) {
+            $motosQuery->where('loja_id', $loja);
+        }
+
+        if ($fabricante) {
+            $motosQuery->where('fabricante_id', $fabricante);
+        }
+        $motos = $motosQuery->get();
+        $sql = $motosQuery->toSql(); // Obtém a string SQL
+
+        // dd($sql);
+
+        return view('motos', compact('motos', 'fabricantes', 'lojas'));
+    }
+
+    public function vendas(){
+        $vendas  = Venda::where('loja_id', Auth::user()->loja_id)->where('status', 'aberto')->get();
+
+        return view('vendas', compact('vendas'));
+    }
+
+    public function show_vendas($id){
+        $venda = Venda::find($id);
+
+        return view('show_vendas', compact('venda'));
     }
 }

@@ -26,7 +26,7 @@ class Venda extends Model
     ];
 
     public function loja(){
-        return $this->belongsTo(Loja::class);
+        return $this->hasOne(Loja::class);
     }
 
     public function user(){
@@ -42,6 +42,10 @@ class Venda extends Model
         $amount_paid = Parcela::where('venda_id', $venda->id)->sum('amount_paid');
 
         return $amount_paid;
+    }
+
+    public function getParcelas(){
+        return $this->hasMany(Parcela::class);
     }
 
 

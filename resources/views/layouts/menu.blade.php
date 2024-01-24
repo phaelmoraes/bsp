@@ -62,9 +62,18 @@
 
 @if( $permissao == "Administrator")
 <li class="nav-item">
-    <a href="{{ route('motos') }}" class="nav-link">
+    <a href="{{ route('buscar_motos', ['loja' => Auth::user()->loja_id, 'fabricante' => 0]) }}" class="nav-link">
         <i class="nav-icon fas fa-briefcase"></i>
         <p>Motos</p>
+    </a>
+</li>
+@endif
+
+@if( $permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('vendas') }}" class="nav-link">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Acompanhar Vendas</p>
     </a>
 </li>
 @endif

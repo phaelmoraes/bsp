@@ -311,51 +311,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-outline card-danger collapsed-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Busca Avançada</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('buscar_motos', ['loja' => Auth::user()->loja_id, 'fabricante' => 0]) }}" method="GET" id="buscarMotosForm">
-                            <div class="form-row">
-                                <div class="col-lg-6">
-                                    <label for="loja">Lojas</label>
-                                    <select class="form-control" id="loja" name="loja">
-                                        <option value="0">Todas</option>
-                                        @foreach($lojas as $lojaOption)
-                                            <option value="{{ $lojaOption->id }}">{{ $lojaOption->loja }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="fabricante">Fabricantes</label>
-                                    <select class="form-control" id="fabricante" name="fabricante">
-                                        <option value="0">Todos</option>
-                                        @foreach($fabricantes as $fabricanteOption)
-                                            <option value="{{ $fabricanteOption->id }}">{{ $fabricanteOption->fabricante }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Buscar Motos</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
                 <div class="card card-outline card-danger">
                   <div class="card-header">
-                    <h3 class="card-title">Motos Cadastradas</h3>
+                    <h3 class="card-title">Vendas em aberto</h3>
                         <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
                       <i class="fas fa-plus"></i>
@@ -370,27 +328,29 @@
                                 <th scope="col">Fabricante</th>
                                 <th scope="col">Modelo</th>
                                 <th scope="col">Placa</th>
-                                <th scope="col">Chassi</th>
-                                <th scope="col">Ano</th>
-                                <th scope="col">Quilometragem</th>
-                                <th scope="col">Cilindrada</th>
-                                <th scope="col">Loja</th>
+                                <th scope="col">Forma de Pagamento</th>
+                                <th scope="col">Valor Total</th>
+                                <th scope="col">Valor Pago</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Vendedor</th>
                                 <th scope="col">Opções</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($motos as $moto)
+                            @foreach($vendas as $venda)
                             <tr>
-                                <th scope="row">{{$moto->id}}</th>
-                                <th scope="row">{{$moto->fabricante->fabricante}}</th>
-                                <th scope="row">{{$moto->modelo}}</th>
-                                <th scope="row">{{$moto->placa}}</th>
-                                <th scope="row">{{$moto->chassi}}</th>
-                                <th scope="row">{{$moto->ano}}</th>
-                                <th scope="row">{{$moto->km}}</th>
-                                <th scope="row">{{$moto->loja->loja}}</th>
-                                <th scope="row">{{$moto->cilindrada}}</th>
-                                <th><a class="btn btn-primary" href="{{url('moto/'.$moto->id)}}" role="button">Detalhes</a></th>
+                                <th scope="row">{{$venda->id}}</th>
+                                <th scope="row">{{$venda->moto->fabricante->fabricante}}</th>
+                                <th scope="row">{{$venda->moto->modelo}}</th>
+                                <th scope="row">{{$venda->moto->placa}}</th>
+                                <th scope="row">{{$venda->forma_pagamento}}</th>
+                                <th scope="row">{{number_format($venda->valor_total,2,',','.')}}</th>
+                                <th scope="row">{{number_format($venda->valor_pago,2,',','.')}}</th>
+                                <th scope="row">{{$venda->cliente}}</th>
+                                <th scope="row">{{$venda->user->name}}</th>
+                                <td>
+                                    <a href="{{url('vendas/'.$venda->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
+                                </td>
 
                             </tr>
                             @endforeach

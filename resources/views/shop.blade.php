@@ -7,6 +7,31 @@
 
 @push('script-fisrt')
 <script src="{{ asset('js/img.js') }}"></script>
+<script>
+    
+    String.prototype.reverse = function(){
+        return this.split('').reverse().join(''); 
+    };
+
+    function mascaraMoeda(campo,evento){
+        var tecla = (!evento) ? window.event.keyCode : evento.which;
+        var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+        var resultado  = "";
+        var mascara = "##.###.###,##".reverse();
+        for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+            if (mascara.charAt(x) != '#') {
+                resultado += mascara.charAt(x);
+                x++;
+            } else {
+                resultado += valor.charAt(y);
+                y++;
+                x++;
+            }
+        }
+        campo.value = resultado.reverse();
+    };
+
+</script>
 @endpush
 
 @section('content')
@@ -75,19 +100,28 @@
                                 @csrf
                                 <div class="form-row">
                                     <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{Auth::user()->id}}">
-                                    <input type="hidden" class="form-control" id="loja_id" name="loja_id" value="{{Auth::user()->loja->id}}">
 
-                                    <div class="col-sm-6">
-                                    <label for="name">Fabricante</label>
+                                    <div class="col-sm-4">
+                                        <label for="name">Fabricante</label>
                                         <select class="form-select" aria-label="manufacturer" id="manufacturer" name="manufacturer" required>
                                         @foreach($fabricantes as $fabricante)
                                             <option value="{{$fabricante->id}}">{{$fabricante->fabricante}}</option>
                                         @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-6">
-                                    <label for="lastName">Modelo</label>
-                                    <input type="text" class="form-control" id="model" name="model" />
+
+                                    <div class="col-sm-4">
+                                        <label for="lastName">Modelo</label>
+                                        <input type="text" class="form-control" id="model" name="model" required/>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="loja_id">loja</label>
+                                        <select class="form-select" aria-label="loja_id" id="loja_id" name="loja_id" required>
+                                        @foreach($lojas as $loja)
+                                            <option value="{{$loja->id}}">{{$loja->loja}}</option>
+                                        @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
@@ -96,29 +130,29 @@
 
                                     <div class="col-sm-6">
                                         <label for="placa">Placa</label>
-                                        <input type="text" class="form-control" id="placa" name="placa" />
+                                        <input type="text" class="form-control" id="placa" name="placa" required/>
                                     </div>
 
                                     <div class="col-sm-6">
                                         <label for="lastName">Chassi</label>
-                                        <input type="text" class="form-control" id="chassi" name="chassi" />
+                                        <input type="text" class="form-control" id="chassi" name="chassi"/>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="col-sm-4">
                                         <label for="name">Ano</label>
-                                        <input type="text" size="12" class="form-control" id="ano" name="ano" required>
+                                        <input type="number" size="12" class="form-control" id="ano" name="ano" required>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label for="name">Quilometragem</label>
-                                        <input type="text" size="12" class="form-control" id="km" name="km" required>
+                                        <input type="number" size="12" class="form-control" id="km" name="km" required>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label for="name">Cilindrada</label>
-                                        <input type="text" size="12" class="form-control" id="cld" name="cld" required>
+                                        <input type="number" size="12" class="form-control" id="cld" name="cld" required>
                                     </div>
                                     
                                 </div>
@@ -130,17 +164,17 @@
 
                                     <div class="col-sm-4">
                                         <label for="name">Valor de Compra</label>
-                                        <input type="text" size="12" class="form-control" id="valor_compra" name="valor_compra" required>
+                                        <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="valor_compra" name="valor_compra" required>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label for="name">Valor Estimado de Revenda à vista</label>
-                                        <input type="text" size="12" class="form-control" id="valor_vista" name="valor_vista">
+                                        <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="valor_vista" name="valor_vista" required>
                                     </div>
 
                                     <div class="col-sm-4">
                                         <label for="name">Valor Estimado de Revenda à Parcelado</label>
-                                        <input type="text" size="12" class="form-control" id="valor_credito" name="valor_credito">
+                                        <input type="text" size="12" onKeyUp="mascaraMoeda(this, event)" class="form-control" id="valor_credito" name="valor_credito" required>
                                     </div>
                                 </div>
 

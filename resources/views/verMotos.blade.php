@@ -31,6 +31,32 @@
             });
         });
     </script>
+
+    <script>
+        
+        String.prototype.reverse = function(){
+            return this.split('').reverse().join(''); 
+        };
+
+        function mascaraMoeda(campo,evento){
+            var tecla = (!evento) ? window.event.keyCode : evento.which;
+            var valor  =  campo.value.replace(/[^\d]+/gi,'').reverse();
+            var resultado  = "";
+            var mascara = "##.###.###,##".reverse();
+            for (var x=0, y=0; x<mascara.length && y<valor.length;) {
+                if (mascara.charAt(x) != '#') {
+                    resultado += mascara.charAt(x);
+                    x++;
+                } else {
+                    resultado += valor.charAt(y);
+                    y++;
+                    x++;
+                }
+            }
+            campo.value = resultado.reverse();
+        };
+
+    </script>
 @endpush
 
 @section('content')
@@ -121,17 +147,17 @@
 
                                 <div class="col-sm-4">
                                     <label for="name">Valor de Compra</label>
-                                    <input type="text" size="12" class="form-control" id="valor_compra" name="valor_compra" value="{{$moto->valor_compra}}" readonly>
+                                    <input type="text" size="12" class="form-control" id="valor_compra" name="valor_compra" value="{{number_format($moto->valor_compra,2,',','.') }}" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="name">Valor à vista</label>
-                                    <input type="text" size="12" class="form-control" id="valor_vista" name="valor_vista" value="{{$moto->valor_vista}}" readonly>
+                                    <input type="text" size="12" class="form-control" id="valor_vista" name="valor_vista" value="{{number_format($moto->valor_vista,2,',','.') }}" readonly>
                                 </div>
 
                                 <div class="col-sm-4">
                                     <label for="name">Valor Parcelado</label>
-                                    <input type="text" size="12" class="form-control" id="valor_credito" name="valor_credito" value="{{$moto->valor_credito}}" readonly>
+                                    <input type="text" size="12" class="form-control" id="valor_credito" name="valor_credito" value="{{number_format($moto->valor_credito,2,',','.') }}" readonly>
                                 </div>
                             </div>
 
@@ -196,17 +222,17 @@
                                                     <!-- Campos adicionais para pagamento à vista -->
                                                     <div class="form-group" id="campoVista" style="display: none;">
                                                         <label for="valorTotal">Valor Total</label>
-                                                        <input type="text" class="form-control" id="valorTotal" name="valorTotal">
+                                                        <input type="text" class="form-control" id="valorTotal" name="valorTotal" onKeyUp="mascaraMoeda(this, event)">
                                                     </div>
 
                                                     <!-- Campos adicionais para pagamento parcelado -->
                                                     <div class="form-group" id="campoParcelado" style="display: none;">
                                                         <label for="valorTotalParcelado">Valor Total</label>
-                                                        <input type="text" class="form-control" id="valorTotalParcelado" name="valorTotalParcelado">
+                                                        <input type="text" class="form-control" id="valorTotalParcelado" name="valorTotalParcelado" onKeyUp="mascaraMoeda(this, event)">
                                                         <label for="entrada">Entrada</label>
-                                                        <input type="text" class="form-control" id="entrada" name="entrada">
+                                                        <input type="text" class="form-control" id="entrada" name="entrada" onKeyUp="mascaraMoeda(this, event)">
                                                         <label for="parcelas">Número de Parcelas</label>
-                                                        <input type="text" class="form-control" id="parcelas" name="parcelas">
+                                                        <input type="number" class="form-control" id="parcelas" name="parcelas">
                                                     </div>
 
                                                 </div>

@@ -61,12 +61,15 @@ Route::get('/inspection/year', [App\Http\Controllers\InspectionController::class
 Route::get('/contact/{id}/{consumerId}', [App\Http\Controllers\ContactsController::class, 'delete'])->name('destroy')->middleware('auth');
 
 Route::get('/shop', [App\Http\Controllers\ShopController::class, 'index'])->name('shop')->middleware('auth');
-Route::get('/motos', [App\Http\Controllers\ShopController::class, 'motos'])->name('motos')->middleware('auth');
+// Route::get('/motos', [App\Http\Controllers\ShopController::class, 'motos'])->name('motos')->middleware('auth');
 Route::get('/moto/{id}', [App\Http\Controllers\ShopController::class, 'verMoto'])->name('verMoto')->middleware('auth');
 
 Route::post('/fabricante', [App\Http\Controllers\ShopController::class, 'salvarFabricante'])->name('salvarFabricante')->middleware('auth');
 Route::post('/moto', [App\Http\Controllers\ShopController::class, 'salvarMoto'])->name('salvarMoto')->middleware('auth');
 Route::post('/venda', [App\Http\Controllers\LojaController::class, 'venda'])->name('venda')->middleware('auth');
+Route::get('/buscar_motos/{loja}/{fabricante}', [App\Http\Controllers\LojaController::class, 'buscar_motos'])->name('buscar_motos')->middleware('auth');
+Route::get('/vendas', [App\Http\Controllers\LojaController::class, 'vendas'])->name('vendas')->middleware('auth');
+Route::get('/vendas/{id}', [App\Http\Controllers\LojaController::class, 'show_vendas'])->name('show_vendas')->middleware('auth');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/vendedor', [App\Http\Controllers\LojaController::class, 'index'])->name('vendedor')->middleware('auth');
