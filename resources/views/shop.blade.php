@@ -119,7 +119,7 @@
                                         <label for="loja_id">loja</label>
                                         <select class="form-select" aria-label="loja_id" id="loja_id" name="loja_id" required>
                                         @foreach($lojas as $loja)
-                                            <option value="{{$loja->id}}">{{$loja->loja}}</option>
+                                            <option value="{{ $loja->id }}" @if(Auth::user()->loja->id == $loja->id) selected @endif>{{ $loja->loja }}</option>
                                         @endforeach
                                         </select>
                                     </div>

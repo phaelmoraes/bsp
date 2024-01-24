@@ -24,7 +24,9 @@ class CollaboratorController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        // $users = User::all();
+        $users = User::where('function', '!=', 'vendedor')->get();
+
         $regions = Region::all();
         return view('collaborators', compact('users', 'regions'));
     }
@@ -59,7 +61,7 @@ class CollaboratorController extends Controller
 
         $collaborator->save();
 
-        $users = User::all();
+        $users = User::where('function', '!=', 'vendedor')->get();
         $regions = Region::all();
         
         return view('collaborators', compact('users', 'regions'));
@@ -112,7 +114,7 @@ class CollaboratorController extends Controller
 
         $collaborator->save();
 
-        $users = User::all();
+        $users = User::where('function', '!=', 'vendedor')->get();
         $regions = Region::all();
         return view('collaborators', compact('users', 'regions'));
 
@@ -131,7 +133,7 @@ class CollaboratorController extends Controller
 
     public function balance()
     {
-        $users = User::all();
+        $users = User::where('function', '!=', 'vendedor')->get();
 
         return view('balance', compact('users'));
     }

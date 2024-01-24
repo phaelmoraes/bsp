@@ -70,6 +70,10 @@ Route::post('/venda', [App\Http\Controllers\LojaController::class, 'venda'])->na
 Route::get('/buscar_motos/{loja}/{fabricante}', [App\Http\Controllers\LojaController::class, 'buscar_motos'])->name('buscar_motos')->middleware('auth');
 Route::get('/vendas', [App\Http\Controllers\LojaController::class, 'vendas'])->name('vendas')->middleware('auth');
 Route::get('/vendas/{id}', [App\Http\Controllers\LojaController::class, 'show_vendas'])->name('show_vendas')->middleware('auth');
+Route::get('/vendas/edit/{id}', [App\Http\Controllers\LojaController::class, 'edita_parcela'])->name('edita_parcela')->middleware('auth');  
+Route::get('/acompanhamento', [App\Http\Controllers\LojaController::class, 'acompanhamento'])->name('acompanhamento')->middleware('auth');
+
+
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/vendedor', [App\Http\Controllers\LojaController::class, 'index'])->name('vendedor')->middleware('auth');

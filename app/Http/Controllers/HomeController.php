@@ -38,7 +38,7 @@ class HomeController extends Controller
             // dd($loansFinished);
             return view('home', compact('loans', 'loansFinished'));
         }
-        else {
+        elseif( Auth::user()->function == 'Collaborator') {
             $consumers = Consumer::all();
             $id = Auth::id();
             $day = date("d");
@@ -65,6 +65,12 @@ class HomeController extends Controller
             // dd('aaaa', $loans);
             
             return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished', 'loansFinishedDay'));
+        }
+        else {
+            return redirect()->route('buscar_motos', [
+                'loja' => Auth::user()->loja_id,
+                'fabricante' => 0
+            ]);
         }
         
     }

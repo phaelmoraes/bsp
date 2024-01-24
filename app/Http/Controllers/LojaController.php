@@ -38,6 +38,7 @@ class LojaController extends Controller
     }
 
     public function salvarVendedor(Request $request){
+        // dd($request->all());
         try {
             $vendedor = new User();
             $vendedor->name = $request->nome;
@@ -96,6 +97,7 @@ class LojaController extends Controller
             else {
                 $venda->valor_total = $this->removeMask($request->valorTotalParcelado);
                 $venda->parcelas = $request->parcelas;
+                $venda->entrada = $this->removeMask($request->entrada);
                 $venda->valor_pago = $this->removeMask($request->entrada);
                 $venda->lucro_estimado = $this->removeMask($request->valorTotalParcelado) - $this->removeMask($moto->valor_compra);
                 $venda->status = 'aberto';
@@ -165,9 +167,60 @@ class LojaController extends Controller
         return view('vendas', compact('vendas'));
     }
 
+    public function acompanhamento(){
+        $vendas  = Venda::all();
+
+        return view('vendas', compact('vendas'));
+    }
+
     public function show_vendas($id){
         $venda = Venda::find($id);
 
         return view('show_vendas', compact('venda'));
+    }
+
+    public function edita_parcela($id, Request $request)
+    {
+        $parcela = Parcela::find($id);
+        $venda = Venda::find($parcela->venda_id);
+        $user = User::find(Auth::id());
+        // dd($id, $request->all(), $parcela, $venda, $user);
+        if($parcela->status != 'pago'){
+            if($request->status){
+
+                $parcela->status = 'atraso';
+                $parcela->updated_at = date("Y-m-d H:i:s");
+                $parcela->user_id = $user->id;
+                $parcela->save();
+                return view('show_vendas', compact('venda'));
+    
+            }
+            else{
+                if(isset($request->value)){
+                    $parcela->status = 'pago';
+                    $parcela->updated_at = date("Y-m-d H:i:s");
+                    $parcela->user_id = $user->id;
+                    $parcela->valor_pago = $this->removeMask($request->value);
+                    $parcela->save();
+
+                    $venda->valor_pago = $venda->valor_pago + $this->removeMask($request->value);
+                    if($venda->valor_pago >= $venda->valor_total){
+                        $venda->status = 'pago';
+                    }
+                    $venda->save();
+                }
+                else{
+
+                    $parcela->status = 'atraso';
+                    $parcela->updated_at = date("Y-m-d H:i:s");
+                    $parcela->user_id = $user->id;
+                    $parcela->save();
+
+                }
+
+                return view('show_vendas', compact('venda'));
+            }
+        }
+
     }
 }

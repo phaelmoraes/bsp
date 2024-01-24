@@ -388,8 +388,8 @@
                                 <th scope="row">{{$moto->chassi}}</th>
                                 <th scope="row">{{$moto->ano}}</th>
                                 <th scope="row">{{$moto->km}}</th>
-                                <th scope="row">{{$moto->loja->loja}}</th>
                                 <th scope="row">{{$moto->cilindrada}}</th>
+                                <th scope="row">{{$moto->loja->loja}}</th>
                                 <th><a class="btn btn-primary" href="{{url('moto/'.$moto->id)}}" role="button">Detalhes</a></th>
 
                             </tr>

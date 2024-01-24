@@ -22,15 +22,16 @@ class Venda extends Model
         'user_id',
         'loja_id',
         'moto_id',
-        'cpf'
+        'cpf',
+        'entrada'
     ];
 
     public function loja(){
-        return $this->hasOne(Loja::class);
+        return $this->belongsTo(Loja::class);
     }
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function vendedor(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function moto(){

@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-
+ 
             <!-- Cadastro de Motos -->
             <div class="col-lg-6">
                 <div class="card card-outline card-danger">
@@ -174,7 +174,7 @@
                             </div>
                         </form>
                         </div>
-                        
+                        @if($moto->loja_id == Auth::user()->loja->id)
                         <div class="card-footer">
 
                             <div class="accordion" id="accordionExample">
@@ -248,11 +248,13 @@
 
                             </div>
                         </div>
+                        @endif
                     
                     </div>
 
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

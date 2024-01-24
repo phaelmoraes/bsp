@@ -333,6 +333,8 @@
                                 <th scope="col">Valor Pago</th>
                                 <th scope="col">Cliente</th>
                                 <th scope="col">Vendedor</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Loja</th>
                                 <th scope="col">Opções</th>
                             </tr>
                         </thead>
@@ -347,7 +349,10 @@
                                 <th scope="row">{{number_format($venda->valor_total,2,',','.')}}</th>
                                 <th scope="row">{{number_format($venda->valor_pago,2,',','.')}}</th>
                                 <th scope="row">{{$venda->cliente}}</th>
-                                <th scope="row">{{$venda->user->name}}</th>
+                                <th scope="row">{{$venda->vendedor->name}}</th>
+                                <th scope="row">{{$venda->status}}</th>
+                                <th scope="row">{{$venda->loja->loja}}</th>
+
                                 <td>
                                     <a href="{{url('vendas/'.$venda->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
                                 </td>

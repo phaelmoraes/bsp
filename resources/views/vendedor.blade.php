@@ -398,7 +398,7 @@
                                     <th scope="row">{{$vendedor->id}}</th>
                                     <th scope="row">{{$vendedor->name}}</th>
                                     <th scope="row">{{$vendedor->loja->loja}}</th>
-                                    <th><a class="btn btn-primary" href="#" role="button">Detalhes</a></th>
+                                    <th><a class="btn btn-primary" href="#" role="button">Editar</a></th>
                                 </tr>
                                 @endforeach
                                 
