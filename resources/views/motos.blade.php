@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @push('script-fisrt')
 
@@ -315,7 +315,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Busca Avançada</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -344,7 +344,7 @@
                             </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Buscar Motos</button>
+                        <button type="submit" class="btn btn-danger">Buscar Motos</button>
                     </div>
                     </form>
                 </div>
@@ -357,7 +357,7 @@
                   <div class="card-header">
                     <h3 class="card-title">Motos Cadastradas</h3>
                         <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                       <i class="fas fa-plus"></i>
                         </div>
                     <!-- /.card-tools -->
@@ -390,7 +390,7 @@
                                 <th scope="row">{{$moto->km}}</th>
                                 <th scope="row">{{$moto->cilindrada}}</th>
                                 <th scope="row">{{$moto->loja->loja}}</th>
-                                <th><a class="btn btn-primary" href="{{url('moto/'.$moto->id)}}" role="button">Detalhes</a></th>
+                                <th><a class="btn btn-danger" href="{{url('moto/'.$moto->id)}}" role="button">Detalhes</a></th>
 
                             </tr>
                             @endforeach

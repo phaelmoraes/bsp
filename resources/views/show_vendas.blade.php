@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 
 
@@ -69,7 +69,7 @@
                         <div class="card-tools">
                             <div class="card-tools">
                             <!-- Buttons, labels, and many other things can be placed here! -->
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                             <!-- Here is a label for example -->
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -98,7 +98,7 @@
                         <h3 class="card-title">Informações</h3>
                             <div class="card-tools">
                             <!-- Buttons, labels, and many other things can be placed here! -->
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                             <!-- Here is a label for example -->
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -219,7 +219,7 @@
                         <div class="card-tools">
                             <div class="card-tools">
                             <!-- Buttons, labels, and many other things can be placed here! -->
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                             <!-- Here is a label for example -->
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -264,7 +264,7 @@
 
                                         <td>
                                             <p>
-                                                <button class="btn btn-light btn-sm" type="button" data-toggle="collapse" data-target="#collapse-{{$parcelas->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                                <button class="btn btn-secondary btn-sm" type="button" data-toggle="collapse" data-target="#collapse-{{$parcelas->id}}" aria-expanded="false" aria-controls="collapseExample">
                                                     Detalhes
                                                 </button>
                                             </p>
@@ -307,7 +307,7 @@
 
                                                         @if($parcelas->status != 'pago')
                                                         <div class="col-sm-2 align-self-center">
-                                                            <button type="submit" class="btn btn-primary btn-sm-3">Atualizar</button>
+                                                            <button type="submit" class="btn btn-danger btn-sm-3">Atualizar</button>
                                                         </div>
                                                             
                                                         @endif

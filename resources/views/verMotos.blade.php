@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @push('gallery')
     <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
@@ -99,7 +99,7 @@
                         <h3 class="card-title">Informações</h3>
                             <div class="card-tools">
                             <!-- Buttons, labels, and many other things can be placed here! -->
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                             <!-- Here is a label for example -->
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -181,7 +181,7 @@
                                 <div class="card">
                                     <div class="card-header" id="headingTwo">
                                         <h2 class="mb-0">
-                                            <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <button class="btn btn-block text-left collapsed btn-secondary" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                 Realizar Venda
                                             </button>
                                         </h2>
@@ -237,7 +237,7 @@
 
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary">Realizar Venda</button>
+                                                <button type="submit" class="btn btn-danger">Realizar Venda</button>
                                             </form>
 
                                         </div>

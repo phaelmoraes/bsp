@@ -1,0 +1,21 @@
+#example1_paginate .page-item.active .page-link,
+#example1_paginate .page-item.active .page-link:hover,
+#example1_paginate .page-item:not(.disabled) .page-link:hover {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+#example1_paginate .page-item.disabled .page-link {
+  background-color: #ddd;
+  color: #666;
+}
+
+.dt-button-collection .dropdown-menu .dt-button.dropdown-item.active,
+.dt-button-collection .dropdown-menu .dt-button.dropdown-item:hover {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.dt-button-collection .dropdown-menu .dt-button.dropdown-item {
+  color: #333; /* Cor padrão do texto */
+}

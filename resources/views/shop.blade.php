@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @push('css_dropzone')
 <link rel="stylesheet" href="{{ asset('css/img.css') }}">
@@ -55,7 +55,7 @@
                   <div class="card-header">
                     <h3 class="card-title">Cadastro de Fabricantes</h3>
                         <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                       <i class="fas fa-plus"></i>
                         </div>
                     <!-- /.card-tools -->
@@ -73,7 +73,7 @@
 
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-danger">Cadastrar</button>
                   </div>
                   </form>
                 </div>
@@ -87,7 +87,7 @@
                             <h3 class="card-title">Cadastro de Motos</h3>
                                 <div class="card-tools">
                                 <!-- Buttons, labels, and many other things can be placed here! -->
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                                 <!-- Here is a label for example -->
                                     <i class="fas fa-minus"></i>
                                 </button>
@@ -195,7 +195,7 @@
                                         <p>Fotos</p>
                                     </div>
                                     <div class="drag-area">
-                                        <span class="visible">
+                                        <span class="visible ">
                                             Selecione ou Arraste as fotos aqui
                                             <span class="select" role="button">Carregar Fotos</span>
                                         </span>
@@ -218,7 +218,7 @@
                             
                             
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                <button type="submit" class="btn btn-danger">Cadastrar</button>
                             </div>
                         </form>
                         </div>

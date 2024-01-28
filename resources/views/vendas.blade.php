@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @push('script-fisrt')
 
@@ -315,7 +315,7 @@
                   <div class="card-header">
                     <h3 class="card-title">Vendas em aberto</h3>
                         <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                       <i class="fas fa-plus"></i>
                         </div>
                     <!-- /.card-tools -->
@@ -354,7 +354,7 @@
                                 <th scope="row">{{$venda->loja->loja}}</th>
 
                                 <td>
-                                    <a href="{{url('vendas/'.$venda->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
+                                    <a href="{{url('vendas/'.$venda->id)}}"class="btn btn-danger btn-sm">Detalhes</a>
                                 </td>
 
                             </tr>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @push('script-fisrt')
 
@@ -285,7 +285,7 @@
                   <div class="card-header">
                     <h3 class="card-title">Cadastro de Lojas</h3>
                         <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                          <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                       <i class="fas fa-plus"></i>
                         </div>
                     <!-- /.card-tools -->
@@ -303,7 +303,7 @@
 
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-danger">Cadastrar</button>
                   </div>
                   </form>
                 </div>
@@ -316,7 +316,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Cadastro de Vendedores</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
@@ -361,7 +361,7 @@
                 
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <button type="submit" class="btn btn-danger">Cadastrar</button>
                     </div>
                 
 
@@ -377,7 +377,7 @@
                     <div class="card-header">
                         <h3 class="card-title">Relação de Vendedores</h3>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-tool btn-danger" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
                         </div>
                     </div>
@@ -398,7 +398,7 @@
                                     <th scope="row">{{$vendedor->id}}</th>
                                     <th scope="row">{{$vendedor->name}}</th>
                                     <th scope="row">{{$vendedor->loja->loja}}</th>
-                                    <th><a class="btn btn-primary" href="#" role="button">Editar</a></th>
+                                    <th><a class="btn btn-danger" href="#" role="button">Editar</a></th>
                                 </tr>
                                 @endforeach
                                 
