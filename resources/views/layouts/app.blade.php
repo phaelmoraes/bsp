@@ -132,6 +132,18 @@
     </footer>
 </div>
 
+<!-- Seus scripts -->
+<script>
+    // Oculta o conteúdo imediatamente após o carregamento da página
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector('.wrapper').style.display = 'none';
+    });
+
+    // Aguarda 10 segundos antes de exibir o conteúdo
+    setTimeout(function() {
+        document.querySelector('.wrapper').style.display = 'block';
+    }, 10000); // 10000 milissegundos = 10 segundos
+</script>
 
 @yield('third_party_scripts')
 
