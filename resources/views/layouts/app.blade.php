@@ -133,10 +133,22 @@
 </div>
 
 
-
 @yield('third_party_scripts')
 
 @stack('page_scripts')
 @stack('script-fisrt')
+
+<script>
+        // Oculta o conteúdo imediatamente após o carregamento da página
+        $(document).ready(function() {
+            $('.wrapper').hide();
+        });
+
+        // Aguarda 10 segundos antes de exibir o conteúdo
+        setTimeout(function() {
+            $('.preloader').hide();
+            $('.wrapper').show();
+        }, 5000); // 10000 milissegundos = 10 segundos
+    </script>
 </body>
 </html>
