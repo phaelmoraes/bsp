@@ -30,11 +30,22 @@ class HomeController extends Controller
     public function homeCompact()
     {
         if( Auth::user()->function == 'Administrator'){
+            $day = date("Y/m/d");
             $month = date("m");
-            $day = date("d");
-            $loans = Loan::whereMonth("created_at",$month)->get();
+            $year = date("Y");
 
-            $loansFinished = Loan::whereDay("updated_at",$day)->where("status", "paid")->get();
+            $loans = Loan::where(function($query) use ($month, $year) {
+                $query->whereMonth("created_at", $month)
+                      ->whereYear("created_at", $year);
+            })
+            ->orWhere(function($query) use ($month, $year) {
+                $query->whereMonth("updated_at", $month)
+                      ->whereYear("updated_at", $year);
+            })
+            ->get();            
+            
+            $loansFinished = Loan::whereDate("updated_at", $day)->where("status", "paid")->get();
+
             // dd($loansFinished);
             return view('home', compact('loans', 'loansFinished'));
         }

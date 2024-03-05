@@ -843,7 +843,8 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-        <div class="col-lg-6">
+            
+            <div class="col-lg-6">
                 <div class="card card-outline card-danger">
                   <div class="card-header">
                     <h3 class="card-title">Realizar Empréstimo</h3>
@@ -1040,6 +1041,7 @@
                                   <th scope="col">Cliente</th>
                                   <th scope="col">Valor</th> 
                                   <th scope="col">Opções</th>
+                                  <th scope="col">Finalizado em:</th>
 
                                 </tr>
                               </thead>
@@ -1051,6 +1053,7 @@
                                   <td>
                                     <a href="{{url('loan/'.$loanF->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
                                   </td>
+                                  <td>{{ \Carbon\Carbon::parse($loanF->updated_at)->format('d/m/Y') }}</td>
                                 </tr>
                                 @endforeach
 
@@ -1069,9 +1072,9 @@
 
             <div class="col-lg-6">
                 <div class="card card-outline card-success">
-                <div class="card-header">
+                    <div class="card-header">
                     <h3 class="card-title">Empréstimos Finalizados hoje</h3>
-                        <div class="card-tools">
+                        <div class="card-tools ">
                             <!-- Buttons, labels, and many other things can be placed here! -->
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <!-- Here is a label for example -->
@@ -1089,6 +1092,7 @@
                                   <th scope="col">Cliente</th>
                                   <th scope="col">Valor</th> 
                                   <th scope="col">Opções</th>
+                                  <th scope="col">Finalizado em:</th>
 
                                 </tr>
                               </thead>
@@ -1101,6 +1105,7 @@
                                     <td>
                                         <a href="{{url('loan/'.$loanFDay->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
                                     </td>
+                                    <td>{{ \Carbon\Carbon::parse($loanFDay->updated_at)->format('d/m/Y') }}</td>
                                     </tr>
                                     @endforeach
                                 @endif

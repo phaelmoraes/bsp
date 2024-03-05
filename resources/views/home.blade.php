@@ -69,7 +69,8 @@
                                       @elseif($loan->status == 'cancelled')
                                         <span class="badge bg-danger">Cancelado</span>
                                       @elseif($loan->status == 'paid')
-                                        <span class="badge badge-success">Pago</span>
+                                        <span class="badge badge-success">Pago</span><br>
+                                        <span class="badge badge-success">Finalizado em: {{ \Carbon\Carbon::parse($loan->updated_at)->format('d/m/Y') }}</span>
                                       @elseif($loan->status == 'renegotiated')
                                         <span class="badge badge-warning ">Renegociado</span>
                                       @endif
@@ -169,7 +170,8 @@
                                       @elseif($loanF->status == 'cancelled')
                                         <span class="badge bg-danger">Cancelado</span>
                                       @elseif($loanF->status == 'paid')
-                                        <span class="badge badge-success">Pago</span>
+                                        <span class="badge badge-success">Pago</span><br>
+                                        <span class="badge badge-success">Finalizado em: {{ \Carbon\Carbon::parse($loan->updated_at)->format('d/m/Y') }}</span>
                                       @elseif($loanF->status == 'renegotiated')
                                         <span class="badge badge-warning ">Renegociado</span>
                                       @endif
