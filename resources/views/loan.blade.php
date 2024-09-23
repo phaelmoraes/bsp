@@ -42,10 +42,11 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalRenegotiate">
                                     Renegociar
                                     </button>
-
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancel">
-                                    Cancelar
-                                    </button>
+                                    @if($loan->created_at->isToday())
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancel">
+                                            Cancelar
+                                        </button>
+                                    @endif
 
                                     @if($loan->amount_paid($loan->id) >= $loan->total_price || Auth::user()->function == "Administrator")
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalSucess">

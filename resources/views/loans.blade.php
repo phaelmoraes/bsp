@@ -1021,57 +1021,6 @@
 
             <div class="col-lg-6">
                 <div class="card card-outline card-success">
-                <div class="card-header">
-                    <h3 class="card-title">Empréstimos Finalizados</h3>
-                        <div class="card-tools">
-                            <!-- Buttons, labels, and many other things can be placed here! -->
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <!-- Here is a label for example -->
-                            <i class="fas fa-minus"></i>
-                              </div>
-                          <!-- /.card-tools -->
-                        </div>
-
-                      <div class="card-body">
-
-                          <table class="table table_base" id="example" name="example">
-                              <thead>
-
-                                <tr>
-                                  <th scope="col">Cliente</th>
-                                  <th scope="col">Valor</th> 
-                                  <th scope="col">Opções</th>
-                                  <th scope="col">Finalizado em:</th>
-
-                                </tr>
-                              </thead>
-                              <tbody>
-                                @foreach($loansFinished as $loanF)
-                                <tr>
-                                  <td>{{$loanF->consumer->name}}</td>
-                                  <td> R$ {{number_format($loanF->price,2,",",".")}}</td>
-                                  <td>
-                                    <a href="{{url('loan/'.$loanF->id)}}"class="btn btn-primary btn-sm">Detalhes</a>
-                                  </td>
-                                  <td>{{ \Carbon\Carbon::parse($loanF->updated_at)->format('d/m/Y') }}</td>
-                                </tr>
-                                @endforeach
-
-                                
-                              </tbody>
-                          </table>
-
-
-                      </div>
-
-                      <div class="card-footer">
-                      </div>
-                </div>
-
-            </div>
-
-            <div class="col-lg-6">
-                <div class="card card-outline card-success">
                     <div class="card-header">
                     <h3 class="card-title">Empréstimos Finalizados hoje</h3>
                         <div class="card-tools ">

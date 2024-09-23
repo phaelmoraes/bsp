@@ -565,7 +565,7 @@
     <div class="container-fluid">
         <div class="row">
         @if( $permissao == "Administrator")
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="card card-outline card-danger">
                     <div class="card-header">
                         <h3 class="card-title">
@@ -612,9 +612,51 @@
                     <div class="card-footer"></div>
                 </div>
             </div>
+
+            <div class="col-lg-4">
+                <div class="card card-outline card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Balanço
+                        </h3>
+                        <div class="card-tools">
+                            <!-- Buttons, labels, and many other things can be placed here! -->
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <!-- Here is a label for example -->
+                            <i class="fas fa-minus"></i>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <div class="card-body">
+                    <table class="table table_base" id="example" name="example">
+                              <thead>
+
+                                <tr>
+                                  <th scope="col">Rota</th>
+                                  <th scope="col">Recebido hoje</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                @foreach($results as $rotaValor)
+                                <tr>
+                                    <td> {{$rotaValor->name}}  </td>
+                                    <td>R$ {{ number_format($rotaValor->total_paid, 2, ",", ".") }}</td>
+                                </tr>
+                                @endforeach
+
+
+
+
+                                
+                              </tbody>
+                          </table>
+                    </div>
+                    <div class="card-footer"></div>
+                </div>
+            </div>
         
 
-            <div class="col-lg-6">
+            <div class="col-lg-3">
                 <div class="card card-outline card-danger">
                     <div class="card-header">
                         <h3 class="card-title">
@@ -656,6 +698,8 @@
                     
                 </div>
             </div>
+
+            
         @endif
 
             <div class="col-lg-6">
@@ -701,6 +745,7 @@
                     <div class="card-footer"></div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

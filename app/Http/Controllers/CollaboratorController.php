@@ -13,7 +13,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRequest;
-
+use App\Models\LoanInstallment;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CollaboratorController extends Controller
 {
@@ -134,8 +136,18 @@ class CollaboratorController extends Controller
     public function balance()
     {
         $users = User::where('function', '!=', 'vendedor')->get();
+        
+        $results = DB::table('loan_installments as li')
+            ->select(DB::raw('SUM(li.amount_paid) as total_paid, l.region_id, r.name'))
+            ->join('loans as l', 'l.id', '=', 'li.loan_id')
+            ->join('regions as r', 'r.id', '=', 'l.region_id')
+            ->where('li.amount_paid', '>', 0)
+            ->whereDate('li.updated_at', Carbon::now()->toDateString()) 
+            ->where('l.status', '!=', 'cancelled')
+            ->groupBy('l.region_id', 'r.name')
+            ->get();
 
-        return view('balance', compact('users'));
+        return view('balance', compact('users', 'results'));
     }
 
     public function addBalance(Request $request)

@@ -53,12 +53,12 @@ class LoanController extends Controller
         }
 
         $loans = Loan::where('status', 'opened')->where('region_id', $region->id)->get();
-        $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
+        // $loansFinished = Loan::where('status', 'paid')->where('region_id', $region->id)->get();
         // dd($day);
         $loansFinishedDay = Loan::whereDate("updated_at", $day)->where("status", "paid")->where('region_id', $region->id)->get();
         // dd('aaaa', $loansFinishedDay);
         
-        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinished', 'loansFinishedDay'));
+        return view('loans', compact('consumers','collaborator', 'region', 'loans', 'loansFinishedDay'));
 
     }
 
