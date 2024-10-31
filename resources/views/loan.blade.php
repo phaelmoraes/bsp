@@ -42,7 +42,7 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalRenegotiate">
                                     Renegociar
                                     </button>
-                                    @if($loan->created_at->isToday())
+                                    @if($loan->created_at->isToday() || Auth::user()->function == "Administrator")
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalCancel">
                                             Cancelar
                                         </button>
