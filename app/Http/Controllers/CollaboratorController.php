@@ -176,4 +176,23 @@ class CollaboratorController extends Controller
 
         return $number;
     }
+
+    public function historico(){
+        return view('historico');
+    }
+
+    public function detalhes(Request $request){
+        $loans = Loan::where('consumer_id', $request->consumer)->get();
+
+        return view('detalhesLoan', compact('loans'));
+    }
+
+    public function detalheParcela($id){
+        $parcelas = LoanInstallment::where('loan_id', $id)->get();
+
+        return view('detalhesParcela', compact('parcelas'));
+    }
+
+    
+    
 }

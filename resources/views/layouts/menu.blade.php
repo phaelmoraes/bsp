@@ -26,6 +26,14 @@
     </a>
 </li>
 @endif
+@if($permissao == "Administrator")
+<li class="nav-item">
+    <a href="{{ route('historico') }}" class="nav-link">
+        <i class="nav-icon fas fa-user"></i>
+        <p>Histórico</p>
+    </a>
+</li>
+@endif
 @if( $permissao == "Administrator" || $permissao == "Collaborator")
 <li class="nav-item">
     <a href="{{ route('loan') }}" class="nav-link">

@@ -79,6 +79,11 @@ Route::get('/acompanhamento', [App\Http\Controllers\LojaController::class, 'acom
 Route::get('/vendedor', [App\Http\Controllers\LojaController::class, 'index'])->name('vendedor')->middleware('auth');
 Route::post('/vendedor', [App\Http\Controllers\LojaController::class, 'salvarVendedor'])->name('salvarVendedor')->middleware('auth');
 Route::post('/loja', [App\Http\Controllers\LojaController::class, 'salvarLoja'])->name('salvarLoja')->middleware('auth');
+Route::get('/historico', [App\Http\Controllers\CollaboratorController::class, 'historico'])->name('historico')->middleware('auth');
+Route::post('/detalhes', [App\Http\Controllers\CollaboratorController::class, 'detalhes'])->name('detalhes')->middleware('auth');
+Route::get('/detalheParcela/{id}', [App\Http\Controllers\CollaboratorController::class, 'detalheParcela'])->name('detalheParcela')->middleware('auth');
+
+
 
 
 Auth::routes();
