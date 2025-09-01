@@ -176,6 +176,14 @@
                                     <input type="text" size="12" class="form-control" id="cliente" name="cliente" value="{{$venda->cliente}}" readonly>
                                 </div>
                                 <div class="col-sm-6">
+                                    <label for="name">telefone do cliente</label>
+                                    <input type="text" size="12" class="form-control" id="telefone" name="telefone" value="{{$venda->telefone}}" readonly>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="name">Endereço do Cliente</label>
+                                    <input type="text" size="12" class="form-control" id="endereco" name="endereco" value="{{$venda->endereco}}" readonly>
+                                </div>
+                                <div class="col-sm-6">
                                     <label for="name">Vendedor</label>
                                     <input type="text" size="12" class="form-control" id="vendedor" name="vendedor" value="{{$venda->vendedor->name}}" readonly>
                                 </div>

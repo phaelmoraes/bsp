@@ -150,6 +150,13 @@ class CollaboratorController extends Controller
         return view('balance', compact('users', 'results'));
     }
 
+    public function balance2()
+    {
+        $users = User::where('function', '!=', 'vendedor')->get();
+        
+        return view('balance2', compact('users'));
+    }
+
     public function addBalance(Request $request)
     {
         
@@ -160,6 +167,16 @@ class CollaboratorController extends Controller
         return redirect()->route('balance');
     }
 
+    public function addBalance2(Request $request)
+    {
+        
+        $user = User::find($request->collaborator);
+        $user->balance = $user->balance + $this->removeMask($request->value);
+        $user->save();
+
+        return redirect()->route('balance2');
+    }
+
     public function zerarBalance($id)
     {
         $user = User::find($id);
@@ -168,6 +185,15 @@ class CollaboratorController extends Controller
         // dd($user);
 
         return redirect()->route('balance');
+    }
+
+    public function zerarBalance2($id)
+    {
+        $user = User::find($id);
+        $user->balance = 0.00;
+        $user->save();
+
+        return redirect()->route('balance2');
     }
 
     public function removeMask($value){

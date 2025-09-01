@@ -44,8 +44,11 @@ Route::get('/loan/finish/{id}', [App\Http\Controllers\LoanController::class, 'fi
 Route::get('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'index'])->name('collaborators')->middleware('auth');
 Route::post('/collaborators', [App\Http\Controllers\CollaboratorController::class, 'store'])->middleware('auth');
 Route::get('/balance', [App\Http\Controllers\CollaboratorController::class, 'balance'])->name('balance')->middleware('auth');
+Route::get('/balance2', [App\Http\Controllers\CollaboratorController::class, 'balance2'])->name('balance2')->middleware('auth');
 Route::get('/balance/zerar/{id}', [App\Http\Controllers\CollaboratorController::class, 'zerarBalance'])->name('zerarBalance')->middleware('auth');
+Route::get('/balance/zerar2/{id}', [App\Http\Controllers\CollaboratorController::class, 'zerarBalance2'])->name('zerarBalance2')->middleware('auth');
 Route::post('/AddBalance', [App\Http\Controllers\CollaboratorController::class, 'AddBalance'])->name('AddBalance')->middleware('auth');
+Route::post('/AddBalance2', [App\Http\Controllers\CollaboratorController::class, 'AddBalance2'])->name('AddBalance2')->middleware('auth');
 Route::get('/collaborator/{id}', [App\Http\Controllers\CollaboratorController::class, 'edit'])->name('collaboratorEdit')->middleware('auth');
 Route::post('/collaborator/edit/{id}', [App\Http\Controllers\CollaboratorController::class, 'update'])->name('collaboratorEditPost')->middleware('auth');
 Route::post('/region', [App\Http\Controllers\RegionsController::class, 'store'])->middleware('auth');

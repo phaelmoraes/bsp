@@ -59,6 +59,14 @@
     </a>
 </li>
 @endif
+@if( $permissao == "Administrator" || $permissao == "Collaborator")
+<li class="nav-item">
+    <a href="{{ route('balance2') }}" class="nav-link">
+        <i class="nav-icon fas fa-solid fa-coins"></i>
+        <p>Saldo Rápido</p>
+    </a>
+</li>
+@endif
 
 @if( $permissao == "Administrator")
 <li class="nav-item">

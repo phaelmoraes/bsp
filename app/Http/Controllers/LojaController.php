@@ -84,6 +84,9 @@ class LojaController extends Controller
 
             $venda->cliente = $request->nome;
             $venda->cpf = $request->cpf;
+
+            $venda->telefone = $request->telefone;
+            $venda->endereco = $request->endereco;
             // dd($venda);
 
             if($request->pagamento == 'vista'){

@@ -200,6 +200,18 @@
                                                     <label for="nome">Nome do Cliente</label>
                                                     <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp">
                                                 </div>
+                                                <div class="form-group">
+                                                    <div class="form-group row">
+                                                        <label for="telefone">telefone do Cliente</label>
+                                                        <input type="text" class="form-control" id="telefone" name="telefone">
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="endereco">Endereço do Cliente</label>
+                                                        <input type="text" class="form-control" id="endereco" name="endereco">
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group row">
                                                     <div class="col-sm-6">
                                                         <label for="cpf">CPF</label>
